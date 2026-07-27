@@ -1,0 +1,18 @@
+# seoyeon real-time travel time check on scheduled travel days
+name: Travel Time Check
+
+on:
+  schedule:
+    - cron: "0 1 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check real-time travel time and push if scheduled today
+        env:
+          TMAP_APP_KEY: ${{ secrets.TMAP_APP_KEY }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python3 scripts/travel_check.py
