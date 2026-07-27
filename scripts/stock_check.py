@@ -57,18 +57,21 @@ def check_stock(code, fallback_name):
         change_val = float(change.replace(",", ""))
         signed_change = -change_val if sign == "-" else change_val
 
+        last_close = None
         try:
             last_close_str = next(
                 item["value"] for item in data.get("totalInfos", []) if item.get("code") == "lastClosePrice"
             )
             last_close = float(last_close_str.replace(",", ""))
-        except (StopIteration, KeyError):
+        except (StopIteration, KeyError, ValueError):
+            pass
+        if not last_close:
             # fallback: derive from close price minus today's signed change
             last_close = close_val - signed_change
 
         if last_close:
             ratio = signed_change / last_close * 100
-            ratio_str = f"{ratio:.2f}"
+            ratio_str = f"{abs(ratio):.2f}"
     except ValueError:
         pass
 
