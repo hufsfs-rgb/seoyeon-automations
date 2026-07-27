@@ -45,8 +45,7 @@ def check_stock(code, fallback_name):
 
     price_block = find_price_block(data) or {}
     close = price_block.get("closePrice", "?")
-    change = price_block.get("compareToPreviousClosePrice", "")
-    ratio = price_block.get("fluctuationsRatio", "")
+    change = price_block.get("compareToPreviousClosePrice", "0")
     rising = price_block.get("compareToPreviousPrice", {}).get("code") if isinstance(price_block.get("compareToPreviousPrice"), dict) else None
     sign = "+" if rising == "2" else ("-" if rising == "5" else "")
 
@@ -72,7 +71,7 @@ def check_stock(code, fallback_name):
     org = fmt_signed_num(latest.get("organPureBuyQuant", "0"))
     ind = fmt_signed_num(latest.get("individualPureBuyQuant", "0"))
 
-    return f"{name} {close}원({sign}{ratio}%) | 외인{frgn} 기관{org} 개인{ind}"
+    return f"{name} {close}원({sign}{change}) | 외인{frgn} 기관{org} 개인{ind}"
 
 
 def check_fx():
