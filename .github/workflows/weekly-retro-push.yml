@@ -1,0 +1,26 @@
+# seoyeon weekly retrospective push notification
+name: Weekly Retro Push
+
+on:
+  schedule:
+    - cron: "5 13 * * 0"
+  workflow_dispatch: {}
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send ntfy push notification
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: |
+          cat > payload.json <<'EOF'
+          {
+            "topic": "${{ secrets.NTFY_TOPIC }}",
+            "title": "서연의 주간 회고 🗓️",
+            "message": "이번 주 회고가 준비됐어요! 노션에서 확인해주세요 :)"
+          }
+          EOF
+          curl -sS -X POST https://ntfy.sh \
+            -H "Content-Type: application/json; charset=utf-8" \
+            --data-binary @payload.json
