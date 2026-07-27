@@ -13,7 +13,7 @@ HEADERS = {
     "Content-Type": "application/json",
 }
 LEDGER_DB_ID = "d066c98b-aa9b-40f3-86a6-b237db75d021"
-BUDGET_DB_ID = "aa12c7aa-0225-4b43-97af-3d7730f160fc"
+BUDGET_DB_ID = "d897f317-b86d-4ece-ad5a-956f42353105"
 STATE_PATH = "data/budget-alert-state.json"
 THRESHOLDS = [100, 90, 70]
 
