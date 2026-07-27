@@ -24,6 +24,11 @@ jobs:
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: python3 scripts/send_morning_push.py
+      - name: Append weather/stock to Notion briefing (best-effort)
+        continue-on-error: true
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: python3 scripts/append_weather_stock_to_notion.py
       - name: Commit weather history if changed
         run: |
           git config user.name "seoyeon-bot"
