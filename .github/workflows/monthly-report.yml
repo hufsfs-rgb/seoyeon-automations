@@ -1,0 +1,17 @@
+# seoyeon monthly expense report
+name: Monthly Expense Report
+
+on:
+  schedule:
+    - cron: "10 0 1 * *"
+  workflow_dispatch: {}
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate monthly report
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: python3 scripts/monthly_report.py

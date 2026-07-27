@@ -1,0 +1,18 @@
+# seoyeon fixed expense D-1 reminder
+name: Fixed Expense Reminder
+
+on:
+  schedule:
+    - cron: "10 23 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check fixed expenses due tomorrow
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python3 scripts/fixed_expense_reminder.py

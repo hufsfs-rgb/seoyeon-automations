@@ -1,0 +1,32 @@
+# seoyeon monthly budget threshold check
+name: Budget Check
+
+on:
+  schedule:
+    - cron: "0 12 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check budget thresholds
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python3 scripts/budget_check.py
+      - name: Commit alert state if changed
+        run: |
+          git config user.name "seoyeon-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/budget-alert-state.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update budget alert state $(date -u +%Y-%m-%d)"
+            git push
+          fi
