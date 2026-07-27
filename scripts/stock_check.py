@@ -53,15 +53,23 @@ def check_stock(code, fallback_name):
     # in this endpoint belongs to sibling/industry stocks, not the queried stock itself
     ratio_str = ""
     try:
-        last_close_str = next(
-            item["value"] for item in data.get("totalInfos", []) if item.get("code") == "lastClosePrice"
-        )
-        last_close = float(last_close_str.replace(",", ""))
+        close_val = float(close.replace(",", ""))
         change_val = float(change.replace(",", ""))
+        signed_change = -change_val if sign == "-" else change_val
+
+        try:
+            last_close_str = next(
+                item["value"] for item in data.get("totalInfos", []) if item.get("code") == "lastClosePrice"
+            )
+            last_close = float(last_close_str.replace(",", ""))
+        except (StopIteration, KeyError):
+            # fallback: derive from close price minus today's signed change
+            last_close = close_val - signed_change
+
         if last_close:
-            ratio = change_val / last_close * 100
+            ratio = signed_change / last_close * 100
             ratio_str = f"{ratio:.2f}"
-    except (StopIteration, ValueError, KeyError):
+    except ValueError:
         pass
 
     # investor trend: find list of dicts containing foreignerPureBuyQuant
