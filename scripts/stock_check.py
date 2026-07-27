@@ -45,7 +45,7 @@ def check_stock(code, fallback_name):
 
     price_block = find_price_block(data) or {}
     close = price_block.get("closePrice", "?")
-    change = price_block.get("compareToPreviousClosePrice", "0")
+    change = price_block.get("compareToPreviousClosePrice", "0").lstrip("+-")
     rising = price_block.get("compareToPreviousPrice", {}).get("code") if isinstance(price_block.get("compareToPreviousPrice"), dict) else None
     sign = "+" if rising == "2" else ("-" if rising == "5" else "")
 
