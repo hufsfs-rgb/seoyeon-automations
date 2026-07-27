@@ -11,9 +11,16 @@ def main():
         with open("weather_summary.txt", encoding="utf-8") as f:
             weather_line = f.read().strip()
 
+    stock_line = ""
+    if os.path.exists("stock_summary.txt"):
+        with open("stock_summary.txt", encoding="utf-8") as f:
+            stock_line = f.read().strip()
+
     message = "오늘의 브리핑이 준비됐어요! 노션에서 확인해주세요 :)"
     if weather_line:
         message += "\n\n" + weather_line
+    if stock_line:
+        message += "\n\n" + stock_line
 
     payload = {
         "topic": os.environ["NTFY_TOPIC"],
