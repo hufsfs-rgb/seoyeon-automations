@@ -49,6 +49,21 @@ def check_stock(code, fallback_name):
     rising = price_block.get("compareToPreviousPrice", {}).get("code") if isinstance(price_block.get("compareToPreviousPrice"), dict) else None
     sign = "+" if rising == "2" else ("-" if rising == "5" else "")
 
+    # compute % change from lastClosePrice (전일 종가) in totalInfos, since fluctuationsRatio
+    # in this endpoint belongs to sibling/industry stocks, not the queried stock itself
+    ratio_str = ""
+    try:
+        last_close_str = next(
+            item["value"] for item in data.get("totalInfos", []) if item.get("code") == "lastClosePrice"
+        )
+        last_close = float(last_close_str.replace(",", ""))
+        change_val = float(change.replace(",", ""))
+        if last_close:
+            ratio = change_val / last_close * 100
+            ratio_str = f"{ratio:.2f}"
+    except (StopIteration, ValueError, KeyError):
+        pass
+
     # investor trend: find list of dicts containing foreignerPureBuyQuant
     def find_trend_list(obj):
         if isinstance(obj, list):
@@ -71,7 +86,7 @@ def check_stock(code, fallback_name):
     org = fmt_signed_num(latest.get("organPureBuyQuant", "0"))
     ind = fmt_signed_num(latest.get("individualPureBuyQuant", "0"))
 
-    return f"{name} {close}원({sign}{change}) | 외인{frgn} 기관{org} 개인{ind}"
+    return f"{name} {close}원({sign}{ratio_str}%) | 외인{frgn} 기관{org} 개인{ind}"
 
 
 def check_fx():
