@@ -64,10 +64,16 @@ def main():
         pay_day = p.get("결제일", {}).get("number")
         if pay_day is None:
             continue
-        if int(pay_day) == tomorrow.day:
-            name = rich_text_plain(p.get("항목", {}).get("title", []))
-            amount = p.get("금액", {}).get("number")
-            due.append((name, amount))
+        if int(pay_day) != tomorrow.day:
+            continue
+        cycle = (p.get("주기", {}).get("select") or {}).get("name", "매월")
+        if cycle == "매년":
+            pay_month = p.get("결제월", {}).get("number")
+            if pay_month is None or int(pay_month) != tomorrow.month:
+                continue
+        name = rich_text_plain(p.get("항목", {}).get("title", []))
+        amount = p.get("금액", {}).get("number")
+        due.append((name, amount))
 
     if not due:
         print("No fixed expenses due tomorrow.")
