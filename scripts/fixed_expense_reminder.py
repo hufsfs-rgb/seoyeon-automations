@@ -1,3 +1,4 @@
+import calendar
 import json
 import os
 import urllib.request
@@ -64,7 +65,15 @@ def main():
         pay_day = p.get("결제일", {}).get("number")
         if pay_day is None:
             continue
-        if int(pay_day) != tomorrow.day:
+        pay_day = int(pay_day)
+        # 결제일=31은 "매월 말일"을 의미하는 sentinel (2/4/6/9/11월처럼 31일이 없는 달 대응)
+        last_day_of_tomorrows_month = calendar.monthrange(tomorrow.year, tomorrow.month)[1]
+        is_due_tomorrow = (
+            tomorrow.day == last_day_of_tomorrows_month
+            if pay_day == 31
+            else pay_day == tomorrow.day
+        )
+        if not is_due_tomorrow:
             continue
         cycle = (p.get("주기", {}).get("select") or {}).get("name", "매월")
         if cycle == "매년":
