@@ -1,0 +1,17 @@
+# seoyeon semiconductor daily tracker
+name: Semiconductor Tracker
+
+on:
+  schedule:
+    - cron: "30 7 * * 1-5"
+  workflow_dispatch: {}
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update semiconductor tracker
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: python3 scripts/semiconductor_tracker.py
