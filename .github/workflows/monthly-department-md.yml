@@ -1,0 +1,18 @@
+# seoyeon monthly department instruction MD snapshot for claude.ai Projects
+name: Monthly Department MD Snapshot
+
+on:
+  schedule:
+    - cron: "0 8 25 * *"
+  workflow_dispatch: {}
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build snapshot and notify
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python3 scripts/monthly_department_md.py
