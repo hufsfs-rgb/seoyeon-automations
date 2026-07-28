@@ -84,6 +84,7 @@ def main():
         return
 
     spent = {}
+    total_spent = 0
     for row in query_all(LEDGER_DB_ID):
         p = row["properties"]
         date_info = p.get("날짜", {}).get("date")
@@ -94,15 +95,20 @@ def main():
         cat = p.get("카테고리", {}).get("select")
         cat_name = cat["name"] if cat else None
         amt = p.get("금액", {}).get("number") or 0
+        total_spent += amt
         if cat_name:
             spent[cat_name] = spent.get(cat_name, 0) + amt
 
     state = load_state()
     month_state = state.get(month_key, {})
 
+    # "총예산" is a special category meaning the whole household's total monthly
+    # budget across every category, not a real 가계부 카테고리 value.
+    TOTAL_BUDGET_LABEL = "총예산"
+
     alerts = []
     for cat, budget in budgets.items():
-        used = spent.get(cat, 0)
+        used = total_spent if cat == TOTAL_BUDGET_LABEL else spent.get(cat, 0)
         pct = (used / budget) * 100 if budget else 0
         notified = month_state.get(cat, 0)
         for threshold in THRESHOLDS:
