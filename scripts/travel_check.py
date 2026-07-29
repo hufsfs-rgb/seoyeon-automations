@@ -63,9 +63,20 @@ def main():
     today = datetime.now(tz).date()
     checks = load_checks()
 
-    todays = [c for c in checks if c["date"] == today.isoformat()]
+    now = datetime.now(tz)
+    todays = []
+    for c in checks:
+        if c["date"] != today.isoformat():
+            continue
+        arrive_by = datetime.strptime(c["arrive_by_kst"], "%H:%M").replace(
+            year=today.year, month=today.month, day=today.day, tzinfo=tz
+        )
+        if arrive_by <= now:
+            continue  # already past, skip (e.g. second run of the day for an earlier leg)
+        todays.append(c)
+
     if not todays:
-        print("No travel checks scheduled for today.")
+        print("No upcoming travel checks scheduled for today.")
         return
 
     for check in todays:

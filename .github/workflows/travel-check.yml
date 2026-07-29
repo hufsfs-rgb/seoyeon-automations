@@ -3,7 +3,8 @@ name: Travel Time Check
 
 on:
   schedule:
-    - cron: "0 1 * * *"
+    - cron: "0 1 * * *"  # 10:00 KST - morning legs
+    - cron: "0 8 * * *"  # 17:00 KST - evening/return legs
   workflow_dispatch: {}
 
 jobs:
