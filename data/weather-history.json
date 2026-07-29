@@ -10,5 +10,11 @@
     "temp_c": 25.0,
     "humidity": 97,
     "wind_kmph": 6.0
+  },
+  {
+    "date": "2026-07-29",
+    "temp_c": 29.0,
+    "humidity": 84,
+    "wind_kmph": 18.0
   }
 ]
