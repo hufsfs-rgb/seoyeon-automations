@@ -133,6 +133,19 @@ def main():
     except Exception as e:
         print(f"필라델피아반도체지수(SOX) 조회 실패: {e}")
     else:
+        query_body = {
+            "filter": {
+                "and": [
+                    {"property": "종목", "title": {"equals": "필라델피아반도체지수(SOX)"}},
+                    {"property": "날짜", "date": {"equals": sox_date}},
+                ]
+            }
+        }
+        existing = call_notion("POST", f"/databases/{TRACKER_DB_ID}/query", query_body)
+        if existing.get("results"):
+            print(f"SOX {sox_date}: 이미 기록됨, 건너뜀")
+            return
+
         body = {
             "parent": {"database_id": TRACKER_DB_ID},
             "properties": {
