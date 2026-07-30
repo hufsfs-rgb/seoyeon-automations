@@ -22,6 +22,25 @@ STOCKS = [
     ("000660", "SK하이닉스(참고)", "메모리"),
 ]
 
+DAUM_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+    "Referer": "https://finance.daum.net/",
+}
+
+
+def fetch_json_with_headers(url, headers):
+    req = urllib.request.Request(url, headers=headers)
+    with urllib.request.urlopen(req, timeout=15) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def check_sox():
+    data = fetch_json_with_headers("https://finance.daum.net/api/quotes/US.SOX", DAUM_HEADERS)
+    close_val = float(data["tradePrice"])
+    ratio = round(float(data["changeRate"]) * 100, 2)
+    trade_date = data.get("date")  # US session date, e.g. "2026-07-29"
+    return close_val, ratio, trade_date
+
 
 def fetch_json(url):
     req = urllib.request.Request(url, headers=UA)
@@ -108,6 +127,24 @@ def main():
         }
         call_notion("POST", "/pages", body)
         print(f"{name} {today}: {close_val}원 ({ratio}%) 기록 완료")
+
+    try:
+        sox_close, sox_ratio, sox_date = check_sox()
+    except Exception as e:
+        print(f"필라델피아반도체지수(SOX) 조회 실패: {e}")
+    else:
+        body = {
+            "parent": {"database_id": TRACKER_DB_ID},
+            "properties": {
+                "종목": {"title": [{"text": {"content": "필라델피아반도체지수(SOX)"}}]},
+                "날짜": {"date": {"start": sox_date or today}},
+                "종가": {"number": sox_close},
+                "등락률": {"number": sox_ratio},
+                "섹터": {"select": {"name": "지수"}},
+            },
+        }
+        call_notion("POST", "/pages", body)
+        print(f"SOX {sox_date}: {sox_close} ({sox_ratio}%) 기록 완료")
 
 
 if __name__ == "__main__":
