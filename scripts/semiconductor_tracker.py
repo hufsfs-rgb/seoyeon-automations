@@ -48,6 +48,15 @@ def fetch_json(url):
         return json.loads(resp.read().decode("utf-8"))
 
 
+def check_index(item_code):
+    data = fetch_json(f"https://m.stock.naver.com/api/index/{item_code}/basic")
+    close_val = float(data["closePrice"].replace(",", ""))
+    ratio_val = float(data["fluctuationsRatio"])
+    rising = data.get("compareToPreviousPrice", {}).get("code")
+    sign = -1 if rising == "5" else 1
+    return close_val, round(sign * ratio_val, 2)
+
+
 def call_notion(method, path, body=None):
     url = API_BASE + path
     data = json.dumps(body).encode("utf-8") if body is not None else None
@@ -127,6 +136,24 @@ def main():
         }
         call_notion("POST", "/pages", body)
         print(f"{name} {today}: {close_val}원 ({ratio}%) 기록 완료")
+
+    try:
+        kospi_close, kospi_ratio = check_index("KOSPI")
+    except Exception as e:
+        print(f"코스피지수 조회 실패: {e}")
+    else:
+        body = {
+            "parent": {"database_id": TRACKER_DB_ID},
+            "properties": {
+                "종목": {"title": [{"text": {"content": "코스피지수"}}]},
+                "날짜": {"date": {"start": today}},
+                "종가": {"number": kospi_close},
+                "등락률": {"number": kospi_ratio},
+                "섹터": {"select": {"name": "지수"}},
+            },
+        }
+        call_notion("POST", "/pages", body)
+        print(f"코스피지수 {today}: {kospi_close} ({kospi_ratio}%) 기록 완료")
 
     try:
         sox_close, sox_ratio, sox_date = check_sox()
