@@ -53,7 +53,7 @@ def check_index(item_code):
     close_val = float(data["closePrice"].replace(",", ""))
     ratio_val = float(data["fluctuationsRatio"])
     rising = data.get("compareToPreviousPrice", {}).get("code")
-    sign = -1 if rising == "5" else 1
+    sign = -1 if rising in ("4", "5") else 1
     return close_val, round(sign * ratio_val, 2)
 
 
@@ -66,35 +66,18 @@ def call_notion(method, path, body=None):
 
 
 def check_stock(code, name):
+    # NOTE: previously used a recursive search for any dict containing
+    # "closePrice"+"compareToPreviousClosePrice", which could match a stale
+    # nested block elsewhere in the response instead of today's actual
+    # trading data. dealTrendInfos[0] is explicitly today's entry (bizdate).
     data = fetch_json(f"https://m.stock.naver.com/api/stock/{code}/integration")
+    today_block = data["dealTrendInfos"][0]
 
-    def find_price_block(obj):
-        if isinstance(obj, dict):
-            if "closePrice" in obj and "compareToPreviousClosePrice" in obj:
-                return obj
-            for v in obj.values():
-                r = find_price_block(v)
-                if r:
-                    return r
-        elif isinstance(obj, list):
-            for item in obj:
-                r = find_price_block(item)
-                if r:
-                    return r
-        return None
-
-    price_block = find_price_block(data) or {}
-    close = price_block.get("closePrice", "?")
-    change = price_block.get("compareToPreviousClosePrice", "0").lstrip("+-")
-    rising = (
-        price_block.get("compareToPreviousPrice", {}).get("code")
-        if isinstance(price_block.get("compareToPreviousPrice"), dict)
-        else None
-    )
-    sign = -1 if rising == "5" else 1
-
-    close_val = float(str(close).replace(",", ""))
-    change_val = float(str(change).replace(",", ""))
+    close_val = float(today_block["closePrice"].replace(",", ""))
+    change_val = float(today_block["compareToPreviousClosePrice"].replace(",", ""))
+    rising = today_block.get("compareToPreviousPrice", {}).get("code")
+    # 1=상한(up), 2=상승(up), 3=보합(flat), 4=하한(down), 5=하락(down)
+    sign = -1 if rising in ("4", "5") else 1
     signed_change = sign * change_val
 
     last_close = None
