@@ -1,8 +1,6 @@
 import json
 import os
 import urllib.request
-from datetime import datetime
-from zoneinfo import ZoneInfo
 
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
 API_BASE = "https://api.notion.com/v1"
@@ -49,12 +47,18 @@ def fetch_json(url):
 
 
 def check_index(item_code):
+    # NOTE: Naver's index "compareToPreviousPrice.code" / "fluctuationsRatio"
+    # were found to report an incorrect direction/sign when the automation
+    # runs outside normal market hours (e.g. after midnight due to the
+    # GitHub Actions scheduling delay) -- on 2026-08-04's overnight run this
+    # silently flipped a -5.12% KOSPI drop into a reported +5.12% gain.
+    # This endpoint has no reliable numeric previous-close field either, so
+    # instead of trusting Naver's sign at all, the ratio is computed by the
+    # caller from our own previously recorded close (see get_last_close).
     data = fetch_json(f"https://m.stock.naver.com/api/index/{item_code}/basic")
     close_val = float(data["closePrice"].replace(",", ""))
-    ratio_val = float(data["fluctuationsRatio"])
-    rising = data.get("compareToPreviousPrice", {}).get("code")
-    sign = -1 if rising in ("4", "5") else 1
-    return close_val, round(sign * ratio_val, 2)
+    trade_date = data["localTradedAt"][:10]
+    return close_val, trade_date
 
 
 def call_notion(method, path, body=None):
@@ -63,6 +67,37 @@ def call_notion(method, path, body=None):
     req = urllib.request.Request(url, data=data, headers=HEADERS, method=method)
     with urllib.request.urlopen(req) as resp:
         return json.loads(resp.read().decode("utf-8"))
+
+
+def get_last_close(name, before_date):
+    query_body = {
+        "filter": {
+            "and": [
+                {"property": "종목", "title": {"equals": name}},
+                {"property": "날짜", "date": {"before": before_date}},
+            ]
+        },
+        "sorts": [{"property": "날짜", "direction": "descending"}],
+        "page_size": 1,
+    }
+    result = call_notion("POST", f"/databases/{TRACKER_DB_ID}/query", query_body)
+    results = result.get("results", [])
+    if not results:
+        return None
+    return results[0]["properties"]["종가"]["number"]
+
+
+def already_recorded(name, date_str):
+    query_body = {
+        "filter": {
+            "and": [
+                {"property": "종목", "title": {"equals": name}},
+                {"property": "날짜", "date": {"equals": date_str}},
+            ]
+        }
+    }
+    result = call_notion("POST", f"/databases/{TRACKER_DB_ID}/query", query_body)
+    return bool(result.get("results"))
 
 
 def check_stock(code, name):
@@ -74,12 +109,13 @@ def check_stock(code, name):
     today_block = data["dealTrendInfos"][0]
 
     close_val = float(today_block["closePrice"].replace(",", ""))
-    change_val = float(today_block["compareToPreviousClosePrice"].replace(",", ""))
-    rising = today_block.get("compareToPreviousPrice", {}).get("code")
-    # 1=상한(up), 2=상승(up), 3=보합(flat), 4=하한(down), 5=하락(down)
-    sign = -1 if rising in ("4", "5") else 1
-    signed_change = sign * change_val
+    bizdate = today_block["bizdate"]  # e.g. "20260803" -- the real KST trade date,
+    # NOT necessarily "today" if the automation ran late (GitHub Actions delay bug)
+    trade_date = f"{bizdate[0:4]}-{bizdate[4:6]}-{bizdate[6:8]}"
 
+    # Sign comes purely from comparing two numeric closes -- NOT from the
+    # "compareToPreviousPrice.code" field, which was found unreliable (see
+    # check_index note above; the same off-hours flakiness can affect stocks).
     last_close = None
     try:
         last_close_str = next(
@@ -88,55 +124,59 @@ def check_stock(code, name):
         last_close = float(last_close_str.replace(",", ""))
     except (StopIteration, KeyError, ValueError):
         pass
-    if not last_close:
-        last_close = close_val - signed_change
 
-    ratio = (signed_change / last_close * 100) if last_close else 0.0
+    ratio = ((close_val - last_close) / last_close * 100) if last_close else 0.0
 
-    return close_val, round(ratio, 2)
+    return close_val, round(ratio, 2), trade_date
 
 
 def main():
-    tz = ZoneInfo("Asia/Seoul")
-    today = datetime.now(tz).date().isoformat()
-
     for code, name, sector in STOCKS:
         try:
-            close_val, ratio = check_stock(code, name)
+            close_val, ratio, trade_date = check_stock(code, name)
         except Exception as e:
             print(f"{name} 조회 실패: {e}")
+            continue
+
+        if already_recorded(name, trade_date):
+            print(f"{name} {trade_date}: 이미 기록됨, 건너뜀")
             continue
 
         body = {
             "parent": {"database_id": TRACKER_DB_ID},
             "properties": {
                 "종목": {"title": [{"text": {"content": name}}]},
-                "날짜": {"date": {"start": today}},
+                "날짜": {"date": {"start": trade_date}},
                 "종가": {"number": close_val},
                 "등락률": {"number": ratio},
                 "섹터": {"select": {"name": sector}},
             },
         }
         call_notion("POST", "/pages", body)
-        print(f"{name} {today}: {close_val}원 ({ratio}%) 기록 완료")
+        print(f"{name} {trade_date}: {close_val}원 ({ratio}%) 기록 완료")
 
     try:
-        kospi_close, kospi_ratio = check_index("KOSPI")
+        kospi_close, kospi_date = check_index("KOSPI")
     except Exception as e:
         print(f"코스피지수 조회 실패: {e}")
     else:
-        body = {
-            "parent": {"database_id": TRACKER_DB_ID},
-            "properties": {
-                "종목": {"title": [{"text": {"content": "코스피지수"}}]},
-                "날짜": {"date": {"start": today}},
-                "종가": {"number": kospi_close},
-                "등락률": {"number": kospi_ratio},
-                "섹터": {"select": {"name": "지수"}},
-            },
-        }
-        call_notion("POST", "/pages", body)
-        print(f"코스피지수 {today}: {kospi_close} ({kospi_ratio}%) 기록 완료")
+        if already_recorded("코스피지수", kospi_date):
+            print(f"코스피지수 {kospi_date}: 이미 기록됨, 건너뜀")
+        else:
+            prev_close = get_last_close("코스피지수", kospi_date)
+            kospi_ratio = round((kospi_close - prev_close) / prev_close * 100, 2) if prev_close else 0.0
+            body = {
+                "parent": {"database_id": TRACKER_DB_ID},
+                "properties": {
+                    "종목": {"title": [{"text": {"content": "코스피지수"}}]},
+                    "날짜": {"date": {"start": kospi_date}},
+                    "종가": {"number": kospi_close},
+                    "등락률": {"number": kospi_ratio},
+                    "섹터": {"select": {"name": "지수"}},
+                },
+            }
+            call_notion("POST", "/pages", body)
+            print(f"코스피지수 {kospi_date}: {kospi_close} ({kospi_ratio}%) 기록 완료")
 
     try:
         sox_close, sox_ratio, sox_date = check_sox()
