@@ -58,5 +58,11 @@
     "temp_c": 30.0,
     "humidity": 73,
     "wind_kmph": 14.0
+  },
+  {
+    "date": "2026-08-06",
+    "temp_c": 31.0,
+    "humidity": 69,
+    "wind_kmph": 17.0
   }
 ]
