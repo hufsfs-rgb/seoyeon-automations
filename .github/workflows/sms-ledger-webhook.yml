@@ -1,0 +1,36 @@
+# Receives Samsung Card approval SMS text forwarded from an iPhone Shortcuts
+# automation (repository_dispatch webhook) and records it in the 가계부 Notion DB.
+name: SMS Ledger Webhook
+
+on:
+  repository_dispatch:
+    types: [sms_alert]
+
+permissions:
+  contents: write
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse SMS and update ledger
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          SMS_TEXT: ${{ github.event.client_payload.text }}
+        run: python3 scripts/sms_ledger_webhook.py
+      - name: Commit dedup state if changed
+        run: |
+          git config user.name "seoyeon-bot"
+          git config user.email "actions@users.noreply.github.com"
+          if [ ! -f data/sms-processed-hashes.json ]; then
+            echo "No state file to commit."
+            exit 0
+          fi
+          git add data/sms-processed-hashes.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Update SMS dedup state $(date -u +%Y-%m-%d)"
+            git push
+          fi
