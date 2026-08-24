@@ -26,5 +26,23 @@
     "merchant": "구글페이먼트코리아유",
     "amount": 8600.0,
     "date": "2026-08-06"
+  },
+  "d989f13267117f102c50775a8f54ebca1d0fd6b1e83de58652e821a48b0027f4": {
+    "parsed": true,
+    "card": "롯데",
+    "merchant": "이스타항공 주",
+    "amount": 1329900.0,
+    "date": "2026-08-19"
+  },
+  "14466eb257cccabd83b8bc901e24f85634453afc5984346a31dae7d164f3429c": {
+    "parsed": true,
+    "card": "롯데",
+    "merchant": "(주)마이리얼트립",
+    "amount": 30000.0,
+    "date": "2026-08-19"
+  },
+  "98aa0a24f1af77fda2f4abdd9c8dfc76232149e088f28df0bc7a5f11ccec7ffd": {
+    "parsed": false,
+    "recorded_at": "2026-08-24"
   }
 }
