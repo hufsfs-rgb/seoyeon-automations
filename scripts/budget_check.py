@@ -95,8 +95,9 @@ def main():
         cat = p.get("카테고리", {}).get("select")
         cat_name = cat["name"] if cat else None
         amt = p.get("금액", {}).get("number") or 0
-        # 출장여행 = 회사 실비 정산 대상이라 가계부엔 기록하되 총예산(가계 지출) 합계에서는 제외
-        if cat_name != "출장여행":
+        # 출장/여행 = 회사 실비 정산 대상이라 가계부엔 기록하되 총예산(가계 지출) 합계에서는 제외
+        # (순수 개인여행은 "문화/여가"로 분류하므로 여기서 제외되지 않음)
+        if cat_name != "출장/여행":
             total_spent += amt
         if cat_name:
             spent[cat_name] = spent.get(cat_name, 0) + amt
