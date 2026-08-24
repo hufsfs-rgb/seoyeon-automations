@@ -27,6 +27,15 @@ DOMESTIC_PATTERN = re.compile(
 )
 ISSUER_LABELS = {"삼성": "삼성카드", "하나": "하나카드"}
 
+# Lotte Card domestic approval SMS format (multi-line, different field order), e.g.:
+# "[Web발신]\n이스타항공 주\n1,329,900원 승인\n심*현 롯데8*7*\n일시불 08/19 13:14\n누적1,375,750원"
+LOTTE_PATTERN = re.compile(
+    r"(?P<merchant>[^\n]+?)\s*\n\s*(?P<amount>[\d,]+)원\s*승인\s*\n\s*"
+    r"(?P<name>\S+)\s+롯데(?P<mask>[\d*]+)\s*\n\s*"
+    r"(?P<payment>\S+)\s+(?P<date>\d{2}/\d{2})\s+(?P<time>\d{2}:\d{2})\s*\n\s*"
+    r"누적(?P<cumulative>[\d,]+)원"
+)
+
 # Hana Card overseas approval SMS format, e.g.:
 # "[Web발신]\n하나9*6*해외승인 심*현 USD22.00 08/22 15:19 ANTHROPIC* CLAUDE SU"
 # No KRW amount is given (foreign currency + date/time + merchant only, no 누적 field).
@@ -115,6 +124,31 @@ def main():
         state[text_hash] = {"parsed": True, "card": m.group("issuer"), "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
         print(f"Recorded ({issuer_label}): {merchant} {amount:,.0f}원 on {date_iso}")
+        return
+
+    m = LOTTE_PATTERN.search(SMS_TEXT)
+    if m:
+        amount = float(m.group("amount").replace(",", ""))
+        merchant = m.group("merchant").strip()
+        payment = m.group("payment")
+        mm, dd = m.group("date").split("/")
+        date_iso = f"{year}-{mm}-{dd}"
+        memo = "\n".join([
+            f"문자 자동입력 (롯데카드 끝{m.group('mask')}, {payment}) - 카테고리 확인 필요",
+            SMS_TEXT,
+        ])
+        create_page({
+            "항목": {"title": [{"text": {"content": merchant}}]},
+            "날짜": {"date": {"start": date_iso}},
+            "금액": {"number": amount},
+            "카테고리": {"select": {"name": "기타"}},
+            "결제수단": {"select": {"name": "카드"}},
+            "출처": {"select": {"name": "카드명세서"}},
+            "메모": {"rich_text": [{"text": {"content": memo}}]},
+        })
+        state[text_hash] = {"parsed": True, "card": "롯데", "merchant": merchant, "amount": amount, "date": date_iso}
+        save_state(state)
+        print(f"Recorded (롯데카드): {merchant} {amount:,.0f}원 on {date_iso}")
         return
 
     m = HANA_OVERSEAS_PATTERN.search(SMS_TEXT)
