@@ -45,6 +45,20 @@ def call(method, path, body=None):
         return json.loads(resp.read().decode("utf-8"))
 
 
+def fetch_krw_rate(date_iso, currency):
+    """Return KRW per 1 unit of currency on date_iso (ECB reference rate via
+    Frankfurter), or None if the lookup fails. Falls back to the nearest earlier
+    published rate automatically for weekends/holidays."""
+    url = f"https://api.frankfurter.dev/v1/{date_iso}?base={currency}&symbols=KRW"
+    try:
+        with urllib.request.urlopen(url, timeout=10) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+        return data["rates"]["KRW"]
+    except Exception as e:
+        print(f"Exchange rate lookup failed for {currency} on {date_iso}: {e}")
+        return None
+
+
 def load_state():
     if not os.path.exists(STATE_PATH):
         return {}
@@ -107,26 +121,62 @@ def main():
     if m:
         merchant = m.group("merchant").strip()
         currency = m.group("currency")
-        fx_amount = m.group("amount")
+        fx_amount = float(m.group("amount").replace(",", ""))
         mm, dd = m.group("date").split("/")
         date_iso = f"{year}-{mm}-{dd}"
-        # No KRW amount in the SMS itself - leave 금액 unset rather than guess an
-        # exchange rate, so it doesn't silently pollute budget totals with a wrong number.
-        memo = "\n".join([
-            f"하나카드 해외결제 - {currency}{fx_amount} (원화 환산 필요, 실제 청구액 확인 후 금액 직접 입력)",
-            SMS_TEXT,
-        ])
-        create_page({
-            "항목": {"title": [{"text": {"content": f"[해외/환산필요] {merchant}"}}]},
-            "날짜": {"date": {"start": date_iso}},
-            "카테고리": {"select": {"name": "기타"}},
-            "결제수단": {"select": {"name": "카드"}},
-            "출처": {"select": {"name": "카드명세서"}},
-            "메모": {"rich_text": [{"text": {"content": memo}}]},
-        })
-        state[text_hash] = {"parsed": True, "card": "hana_overseas", "merchant": merchant, "fx": f"{currency}{fx_amount}", "date": date_iso}
+
+        # Prioritize completeness over precision: apply that day's published rate
+        # automatically (approximate - doesn't include the card issuer's actual FX
+        # fee/spread) rather than leaving the amount blank pending manual entry.
+        rate = fetch_krw_rate(date_iso, currency)
+        if rate is not None:
+            krw_amount = round(fx_amount * rate)
+            title = merchant
+            memo = "\n".join([
+                f"하나카드 해외결제 - {currency}{fx_amount:,.2f} → 자동 환율({date_iso} ECB 기준 1{currency}={rate:,.2f}원) 적용 "
+                "- 카드사 실제 청구액(수수료 포함)과 다를 수 있음, 카테고리 확인 필요",
+                SMS_TEXT,
+            ])
+            properties = {
+                "항목": {"title": [{"text": {"content": title}}]},
+                "날짜": {"date": {"start": date_iso}},
+                "금액": {"number": krw_amount},
+                "카테고리": {"select": {"name": "기타"}},
+                "결제수단": {"select": {"name": "카드"}},
+                "출처": {"select": {"name": "카드명세서"}},
+                "메모": {"rich_text": [{"text": {"content": memo}}]},
+            }
+        else:
+            # Rate lookup failed - still record the transaction (don't drop it),
+            # just without a KRW amount, flagged for manual entry.
+            title = f"[해외/환산필요] {merchant}"
+            memo = "\n".join([
+                f"하나카드 해외결제 - {currency}{fx_amount:,.2f} (환율 자동조회 실패, 원화 금액 직접 입력 필요)",
+                SMS_TEXT,
+            ])
+            properties = {
+                "항목": {"title": [{"text": {"content": title}}]},
+                "날짜": {"date": {"start": date_iso}},
+                "카테고리": {"select": {"name": "기타"}},
+                "결제수단": {"select": {"name": "카드"}},
+                "출처": {"select": {"name": "카드명세서"}},
+                "메모": {"rich_text": [{"text": {"content": memo}}]},
+            }
+
+        create_page(properties)
+        state[text_hash] = {
+            "parsed": True,
+            "card": "hana_overseas",
+            "merchant": merchant,
+            "fx": f"{currency}{fx_amount}",
+            "krw_amount": krw_amount if rate is not None else None,
+            "date": date_iso,
+        }
         save_state(state)
-        print(f"Recorded (Hana overseas, amount needs manual KRW entry): {merchant} {currency}{fx_amount} on {date_iso}")
+        if rate is not None:
+            print(f"Recorded (Hana overseas): {merchant} {currency}{fx_amount:,.2f} -> {krw_amount:,.0f}원 on {date_iso}")
+        else:
+            print(f"Recorded (Hana overseas, rate lookup failed): {merchant} {currency}{fx_amount:,.2f} on {date_iso}")
         return
 
     # Don't silently drop unrecognized messages - log a flagged row for manual review.
