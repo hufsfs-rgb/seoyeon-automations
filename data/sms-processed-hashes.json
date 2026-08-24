@@ -18,9 +18,5 @@
     "merchant": "테스트",
     "amount": 1000.0,
     "date": "2026-08-24"
-  },
-  "23c5c2295a61bb66dae49e78222598ccfa37956f7bc0a1728885b20fd3bb7c6f": {
-    "parsed": false,
-    "recorded_at": "2026-08-24"
   }
 }
