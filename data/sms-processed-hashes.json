@@ -11,5 +11,12 @@
     "merchant": "ANTHROPIC* CLAUDE SU",
     "fx": "USD22.00",
     "date": "2026-08-22"
+  },
+  "7e757f0b5bb549bcc72a18e01a6f858ef479cf8d5cbef5ad8acce7e7f5b96404": {
+    "parsed": true,
+    "card": "samsung",
+    "merchant": "테스트",
+    "amount": 1000.0,
+    "date": "2026-08-24"
   }
 }
