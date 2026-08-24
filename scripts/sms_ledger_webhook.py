@@ -19,10 +19,21 @@ STATE_PATH = "data/sms-processed-hashes.json"
 
 # Samsung Card approval SMS format, e.g.:
 # "삼성8778승인 심*현 21260원 일시불 08/23 21:18 쿠팡누적5401264원"
-SMS_PATTERN = re.compile(
+SAMSUNG_PATTERN = re.compile(
     r"삼성(?P<last4>\d{4})승인\s+(?P<name>\S+)\s+(?P<amount>[\d,]+)원\s+"
     r"(?P<payment>\S+)\s+(?P<date>\d{2}/\d{2})\s+(?P<time>\d{2}:\d{2})\s+"
     r"(?P<merchant>.+?)누적(?P<cumulative>[\d,]+)원"
+)
+
+# Hana Card overseas approval SMS format, e.g.:
+# "[Web발신]\n하나9*6*해외승인 심*현 USD22.00 08/22 15:19 ANTHROPIC* CLAUDE SU"
+# No KRW amount is given (foreign currency + date/time + merchant only, no 누적 field).
+# Domestic (원화) 하나카드 알림 format is not yet confirmed - add a separate pattern
+# once a real sample is seen; do not assume it matches this one.
+HANA_OVERSEAS_PATTERN = re.compile(
+    r"하나(?P<mask>[\d*]+)해외승인\s+(?P<name>\S+)\s+"
+    r"(?P<currency>[A-Z]{3})(?P<amount>[\d,.]+)\s+"
+    r"(?P<date>\d{2}/\d{2})\s+(?P<time>\d{2}:\d{2})\s+(?P<merchant>.+)"
 )
 
 
@@ -64,46 +75,69 @@ def main():
 
     tz = ZoneInfo("Asia/Seoul")
     today_iso = datetime.now(tz).date().isoformat()
+    year = datetime.now(tz).year
 
-    m = SMS_PATTERN.search(SMS_TEXT)
-    if not m:
-        # Don't silently drop unrecognized messages - log a flagged row for manual review.
+    m = SAMSUNG_PATTERN.search(SMS_TEXT)
+    if m:
+        amount = float(m.group("amount").replace(",", ""))
+        merchant = m.group("merchant").strip()
+        payment = m.group("payment")
+        mm, dd = m.group("date").split("/")
+        date_iso = f"{year}-{mm}-{dd}"
+        memo = "\n".join([
+            f"문자 자동입력 (삼성카드 끝{m.group('last4')}, {payment}) - 카테고리 확인 필요",
+            SMS_TEXT,
+        ])
         create_page({
-            "항목": {"title": [{"text": {"content": "문자 파싱 실패 - 확인 필요"}}]},
-            "날짜": {"date": {"start": today_iso}},
+            "항목": {"title": [{"text": {"content": merchant}}]},
+            "날짜": {"date": {"start": date_iso}},
+            "금액": {"number": amount},
             "카테고리": {"select": {"name": "기타"}},
-            "메모": {"rich_text": [{"text": {"content": SMS_TEXT}}]},
+            "결제수단": {"select": {"name": "카드"}},
+            "출처": {"select": {"name": "카드명세서"}},
+            "메모": {"rich_text": [{"text": {"content": memo}}]},
         })
-        state[text_hash] = {"parsed": False, "recorded_at": today_iso}
+        state[text_hash] = {"parsed": True, "card": "samsung", "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
-        print(f"Could not parse SMS format, logged raw text for review: {SMS_TEXT!r}")
+        print(f"Recorded (Samsung): {merchant} {amount:,.0f}원 on {date_iso}")
         return
 
-    amount = float(m.group("amount").replace(",", ""))
-    merchant = m.group("merchant").strip()
-    payment = m.group("payment")
-    mm, dd = m.group("date").split("/")
-    year = datetime.now(tz).year
-    date_iso = f"{year}-{mm}-{dd}"
+    m = HANA_OVERSEAS_PATTERN.search(SMS_TEXT)
+    if m:
+        merchant = m.group("merchant").strip()
+        currency = m.group("currency")
+        fx_amount = m.group("amount")
+        mm, dd = m.group("date").split("/")
+        date_iso = f"{year}-{mm}-{dd}"
+        # No KRW amount in the SMS itself - leave 금액 unset rather than guess an
+        # exchange rate, so it doesn't silently pollute budget totals with a wrong number.
+        memo = "\n".join([
+            f"하나카드 해외결제 - {currency}{fx_amount} (원화 환산 필요, 실제 청구액 확인 후 금액 직접 입력)",
+            SMS_TEXT,
+        ])
+        create_page({
+            "항목": {"title": [{"text": {"content": f"[해외/환산필요] {merchant}"}}]},
+            "날짜": {"date": {"start": date_iso}},
+            "카테고리": {"select": {"name": "기타"}},
+            "결제수단": {"select": {"name": "카드"}},
+            "출처": {"select": {"name": "카드명세서"}},
+            "메모": {"rich_text": [{"text": {"content": memo}}]},
+        })
+        state[text_hash] = {"parsed": True, "card": "hana_overseas", "merchant": merchant, "fx": f"{currency}{fx_amount}", "date": date_iso}
+        save_state(state)
+        print(f"Recorded (Hana overseas, amount needs manual KRW entry): {merchant} {currency}{fx_amount} on {date_iso}")
+        return
 
-    memo = "\n".join([
-        f"문자 자동입력 (카드끝{m.group('last4')}, {payment}) - 카테고리 확인 필요",
-        SMS_TEXT,
-    ])
-
+    # Don't silently drop unrecognized messages - log a flagged row for manual review.
     create_page({
-        "항목": {"title": [{"text": {"content": merchant}}]},
-        "날짜": {"date": {"start": date_iso}},
-        "금액": {"number": amount},
+        "항목": {"title": [{"text": {"content": "문자 파싱 실패 - 확인 필요"}}]},
+        "날짜": {"date": {"start": today_iso}},
         "카테고리": {"select": {"name": "기타"}},
-        "결제수단": {"select": {"name": "카드"}},
-        "출처": {"select": {"name": "카드명세서"}},
-        "메모": {"rich_text": [{"text": {"content": memo}}]},
+        "메모": {"rich_text": [{"text": {"content": SMS_TEXT}}]},
     })
-
-    state[text_hash] = {"parsed": True, "merchant": merchant, "amount": amount, "date": date_iso}
+    state[text_hash] = {"parsed": False, "recorded_at": today_iso}
     save_state(state)
-    print(f"Recorded: {merchant} {amount:,.0f}원 on {date_iso}")
+    print(f"Could not parse SMS format, logged raw text for review: {SMS_TEXT!r}")
 
 
 if __name__ == "__main__":
