@@ -4,5 +4,23 @@
     "merchant": "쿠팡",
     "amount": 21260.0,
     "date": "2026-08-23"
+  },
+  "18e39c52ded9088f17dee7932cc17c1622045d2876f85fad71aa2c8fe3f034f7": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "ANTHROPIC* CLAUDE SU",
+    "fx": "USD22.00",
+    "date": "2026-08-22"
+  },
+  "7e757f0b5bb549bcc72a18e01a6f858ef479cf8d5cbef5ad8acce7e7f5b96404": {
+    "parsed": true,
+    "card": "samsung",
+    "merchant": "테스트",
+    "amount": 1000.0,
+    "date": "2026-08-24"
+  },
+  "23c5c2295a61bb66dae49e78222598ccfa37956f7bc0a1728885b20fd3bb7c6f": {
+    "parsed": false,
+    "recorded_at": "2026-08-24"
   }
 }
