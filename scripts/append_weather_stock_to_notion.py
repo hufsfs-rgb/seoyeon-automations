@@ -20,6 +20,45 @@ def call(method, path, body=None):
         return json.loads(resp.read().decode("utf-8"))
 
 
+def block_plain_text(block):
+    rt = block.get(block["type"], {}).get("rich_text", [])
+    return "".join(t.get("plain_text", "") for t in rt)
+
+
+def remove_previous_section():
+    """Delete any earlier '📊 날씨 · 주식 · 환율' section (its divider, heading,
+    and the paragraph(s) right after it) so this script overwrites instead of
+    stacking a new section under the old ones every day."""
+    children, cursor = [], None
+    while True:
+        path = f"/blocks/{BRIEFING_PAGE_ID}/children?page_size=100"
+        if cursor:
+            path += f"&start_cursor={cursor}"
+        resp = call("GET", path)
+        children.extend(resp["results"])
+        if not resp.get("has_more"):
+            break
+        cursor = resp["next_cursor"]
+
+    to_delete = []
+    i = 0
+    while i < len(children):
+        b = children[i]
+        if b["type"] == "heading_3" and block_plain_text(b) == "📊 날씨 · 주식 · 환율":
+            start = i - 1 if i > 0 and children[i - 1]["type"] == "divider" else i
+            to_delete.extend(children[start:i + 1])
+            j = i + 1
+            while j < len(children) and children[j]["type"] == "paragraph":
+                to_delete.append(children[j])
+                j += 1
+            i = j
+        else:
+            i += 1
+
+    for b in to_delete:
+        call("DELETE", f"/blocks/{b['id']}")
+
+
 def read_file(path):
     if not os.path.exists(path):
         return ""
@@ -51,6 +90,8 @@ def main():
         print("No weather/stock data to append.")
         return
 
+    remove_previous_section()
+
     blocks = [divider_block(), heading_block("📊 날씨 · 주식 · 환율")]
     if weather:
         blocks.append(paragraph_block(weather))
@@ -58,7 +99,7 @@ def main():
         blocks.append(paragraph_block(stocks))
 
     call("PATCH", f"/blocks/{BRIEFING_PAGE_ID}/children", {"children": blocks})
-    print("Appended weather/stock section to Notion briefing page.")
+    print("Replaced weather/stock section on Notion briefing page.")
 
 
 if __name__ == "__main__":
