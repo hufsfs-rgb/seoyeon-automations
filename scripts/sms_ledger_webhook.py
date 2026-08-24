@@ -17,13 +17,17 @@ HEADERS = {
 LEDGER_DB_ID = "d066c98b-aa9b-40f3-86a6-b237db75d021"
 STATE_PATH = "data/sms-processed-hashes.json"
 
-# Domestic (원화) card approval SMS format - shared by Samsung and Hana, e.g.:
+# Domestic (원화) card approval SMS format - shared by Samsung and Hana. The real
+# SMS can be single-line (spaces) or multi-line (\r\n between fields) - \s+ handles
+# both, but the merchant->누적 boundary needs \s* too since a line break can sit
+# right before "누적" with no space, e.g.:
 # "삼성8778승인 심*현 21260원 일시불 08/23 21:18 쿠팡누적5401264원"
 # "[Web발신]\n하나9*6*승인 심*현 8,600원 일시불 08/06 09:52 구글페이먼트코리아유 누적554,218원"
+# "[Web발신]\n삼성8778승인 심*현\r\n33,000원 일시불\r\n08/24 20:31 별온누리약국\r\n누적5,434,264원"
 DOMESTIC_PATTERN = re.compile(
     r"(?P<issuer>삼성|하나)(?P<mask>[\d*]+)승인\s+(?P<name>\S+)\s+(?P<amount>[\d,]+)원\s+"
     r"(?P<payment>\S+)\s+(?P<date>\d{2}/\d{2})\s+(?P<time>\d{2}:\d{2})\s+"
-    r"(?P<merchant>.+?)누적(?P<cumulative>[\d,]+)원"
+    r"(?P<merchant>[^\n]+?)\s*누적(?P<cumulative>[\d,]+)원"
 )
 ISSUER_LABELS = {"삼성": "삼성카드", "하나": "하나카드"}
 
