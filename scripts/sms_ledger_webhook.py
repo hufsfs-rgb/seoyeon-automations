@@ -17,19 +17,19 @@ HEADERS = {
 LEDGER_DB_ID = "d066c98b-aa9b-40f3-86a6-b237db75d021"
 STATE_PATH = "data/sms-processed-hashes.json"
 
-# Samsung Card approval SMS format, e.g.:
+# Domestic (원화) card approval SMS format - shared by Samsung and Hana, e.g.:
 # "삼성8778승인 심*현 21260원 일시불 08/23 21:18 쿠팡누적5401264원"
-SAMSUNG_PATTERN = re.compile(
-    r"삼성(?P<last4>\d{4})승인\s+(?P<name>\S+)\s+(?P<amount>[\d,]+)원\s+"
+# "[Web발신]\n하나9*6*승인 심*현 8,600원 일시불 08/06 09:52 구글페이먼트코리아유 누적554,218원"
+DOMESTIC_PATTERN = re.compile(
+    r"(?P<issuer>삼성|하나)(?P<mask>[\d*]+)승인\s+(?P<name>\S+)\s+(?P<amount>[\d,]+)원\s+"
     r"(?P<payment>\S+)\s+(?P<date>\d{2}/\d{2})\s+(?P<time>\d{2}:\d{2})\s+"
     r"(?P<merchant>.+?)누적(?P<cumulative>[\d,]+)원"
 )
+ISSUER_LABELS = {"삼성": "삼성카드", "하나": "하나카드"}
 
 # Hana Card overseas approval SMS format, e.g.:
 # "[Web발신]\n하나9*6*해외승인 심*현 USD22.00 08/22 15:19 ANTHROPIC* CLAUDE SU"
 # No KRW amount is given (foreign currency + date/time + merchant only, no 누적 field).
-# Domestic (원화) 하나카드 알림 format is not yet confirmed - add a separate pattern
-# once a real sample is seen; do not assume it matches this one.
 HANA_OVERSEAS_PATTERN = re.compile(
     r"하나(?P<mask>[\d*]+)해외승인\s+(?P<name>\S+)\s+"
     r"(?P<currency>[A-Z]{3})(?P<amount>[\d,.]+)\s+"
@@ -77,15 +77,16 @@ def main():
     today_iso = datetime.now(tz).date().isoformat()
     year = datetime.now(tz).year
 
-    m = SAMSUNG_PATTERN.search(SMS_TEXT)
+    m = DOMESTIC_PATTERN.search(SMS_TEXT)
     if m:
+        issuer_label = ISSUER_LABELS.get(m.group("issuer"), m.group("issuer"))
         amount = float(m.group("amount").replace(",", ""))
         merchant = m.group("merchant").strip()
         payment = m.group("payment")
         mm, dd = m.group("date").split("/")
         date_iso = f"{year}-{mm}-{dd}"
         memo = "\n".join([
-            f"문자 자동입력 (삼성카드 끝{m.group('last4')}, {payment}) - 카테고리 확인 필요",
+            f"문자 자동입력 ({issuer_label} 끝{m.group('mask')}, {payment}) - 카테고리 확인 필요",
             SMS_TEXT,
         ])
         create_page({
@@ -97,9 +98,9 @@ def main():
             "출처": {"select": {"name": "카드명세서"}},
             "메모": {"rich_text": [{"text": {"content": memo}}]},
         })
-        state[text_hash] = {"parsed": True, "card": "samsung", "merchant": merchant, "amount": amount, "date": date_iso}
+        state[text_hash] = {"parsed": True, "card": m.group("issuer"), "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
-        print(f"Recorded (Samsung): {merchant} {amount:,.0f}원 on {date_iso}")
+        print(f"Recorded ({issuer_label}): {merchant} {amount:,.0f}원 on {date_iso}")
         return
 
     m = HANA_OVERSEAS_PATTERN.search(SMS_TEXT)
