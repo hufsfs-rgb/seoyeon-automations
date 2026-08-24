@@ -40,5 +40,12 @@
     "merchant": "(주)마이리얼트립",
     "amount": 30000.0,
     "date": "2026-08-19"
+  },
+  "98aa0a24f1af77fda2f4abdd9c8dfc76232149e088f28df0bc7a5f11ccec7ffd": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "별온누리약국",
+    "amount": 33000.0,
+    "date": "2026-08-24"
   }
 }
