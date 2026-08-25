@@ -47,5 +47,12 @@
     "merchant": "별온누리약국",
     "amount": 33000.0,
     "date": "2026-08-24"
+  },
+  "78dfa6bdeb0f441aacb6b5ef96215cde364c0f999d93d22689020c196b058c50": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 8780.0,
+    "date": "2026-08-25"
   }
 }
