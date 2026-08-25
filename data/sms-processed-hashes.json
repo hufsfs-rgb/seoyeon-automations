@@ -68,5 +68,9 @@
     "merchant": "쿠팡",
     "amount": 54350.0,
     "date": "2026-08-25"
+  },
+  "43f9041212bc3caa19573ca139efeed81c17b3b6fa0e4742dd838df47c86d5ea": {
+    "parsed": false,
+    "recorded_at": "2026-08-25"
   }
 }
