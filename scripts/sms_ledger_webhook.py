@@ -31,6 +31,15 @@ DOMESTIC_PATTERN = re.compile(
 )
 ISSUER_LABELS = {"삼성": "삼성카드", "하나": "하나카드"}
 
+# Cancellation SMS - same shape as DOMESTIC_PATTERN but "취소" instead of "승인",
+# and a "-" before the amount, e.g.:
+# "[Web발신]\n삼성8778취소 심*현\r\n-54,350원 일시불\r\n08/25 20:54 쿠팡\r\n누적5,452,944원"
+CANCEL_PATTERN = re.compile(
+    r"(?P<issuer>삼성|하나)(?P<mask>[\d*]+)취소\s+(?P<name>\S+)\s+-?(?P<amount>[\d,]+)원\s+"
+    r"(?P<payment>\S+)\s+(?P<date>\d{2}/\d{2})\s+(?P<time>\d{2}:\d{2})\s+"
+    r"(?P<merchant>[^\n]+?)\s*누적(?P<cumulative>[\d,]+)원"
+)
+
 # Lotte Card domestic approval SMS format (multi-line, different field order), e.g.:
 # "[Web발신]\n이스타항공 주\n1,329,900원 승인\n심*현 롯데8*7*\n일시불 08/19 13:14\n누적1,375,750원"
 LOTTE_PATTERN = re.compile(
@@ -128,6 +137,31 @@ def main():
         state[text_hash] = {"parsed": True, "card": m.group("issuer"), "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
         print(f"Recorded ({issuer_label}): {merchant} {amount:,.0f}원 on {date_iso}")
+        return
+
+    m = CANCEL_PATTERN.search(SMS_TEXT)
+    if m:
+        issuer_label = ISSUER_LABELS.get(m.group("issuer"), m.group("issuer"))
+        amount = float(m.group("amount").replace(",", ""))
+        merchant = m.group("merchant").strip()
+        mm, dd = m.group("date").split("/")
+        date_iso = f"{year}-{mm}-{dd}"
+        memo = "\n".join([
+            f"결제 취소 - 이전 승인 건 상쇄용 마이너스 기록 ({issuer_label} 끝{m.group('mask')})",
+            SMS_TEXT,
+        ])
+        create_page({
+            "항목": {"title": [{"text": {"content": f"[취소] {merchant}"}}]},
+            "날짜": {"date": {"start": date_iso}},
+            "금액": {"number": -amount},
+            "카테고리": {"select": {"name": "기타"}},
+            "결제수단": {"select": {"name": "카드"}},
+            "출처": {"select": {"name": "카드명세서"}},
+            "메모": {"rich_text": [{"text": {"content": memo}}]},
+        })
+        state[text_hash] = {"parsed": True, "card": m.group("issuer"), "cancelled_merchant": merchant, "amount": -amount, "date": date_iso}
+        save_state(state)
+        print(f"Recorded cancellation ({issuer_label}): {merchant} -{amount:,.0f}원 on {date_iso}")
         return
 
     m = LOTTE_PATTERN.search(SMS_TEXT)
