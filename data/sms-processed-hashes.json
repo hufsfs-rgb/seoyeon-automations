@@ -96,5 +96,12 @@
     "cancelled_merchant": "쿠팡",
     "amount": -54350.0,
     "date": "2026-08-25"
+  },
+  "b986e2acc503f318c8789aca22e8de8295afc0884d92160463a86c8dcc7220e1": {
+    "parsed": true,
+    "card": "삼성카드",
+    "merchant": "아파트관리비",
+    "amount": 397780.0,
+    "date": "2026-08-25"
   }
 }
