@@ -49,6 +49,16 @@ LOTTE_PATTERN = re.compile(
     r"누적(?P<cumulative>[\d,]+)원"
 )
 
+# Recurring auto-payment ("자동결제") SMS - different shape entirely, no name/누적
+# field, issuer is bracketed with the word 카드 already included, e.g.:
+# "[Web발신]\n[삼성카드]8778\n자동결제 08/25접수\n아파트관리비\n397,780원"
+AUTOPAY_PATTERN = re.compile(
+    r"\[(?P<issuer>[^\]]+)\](?P<mask>[\d*]+)\s*\n\s*"
+    r"자동결제\s*(?P<date>\d{2}/\d{2})\s*접수\s*\n\s*"
+    r"(?P<merchant>[^\n]+?)\s*\n\s*"
+    r"(?P<amount>[\d,]+)원"
+)
+
 # Hana Card overseas approval SMS format, e.g.:
 # "[Web발신]\n하나9*6*해외승인 심*현 USD22.00 08/22 15:19 ANTHROPIC* CLAUDE SU"
 # No KRW amount is given (foreign currency + date/time + merchant only, no 누적 field).
@@ -162,6 +172,30 @@ def main():
         state[text_hash] = {"parsed": True, "card": m.group("issuer"), "cancelled_merchant": merchant, "amount": -amount, "date": date_iso}
         save_state(state)
         print(f"Recorded cancellation ({issuer_label}): {merchant} -{amount:,.0f}원 on {date_iso}")
+        return
+
+    m = AUTOPAY_PATTERN.search(SMS_TEXT)
+    if m:
+        amount = float(m.group("amount").replace(",", ""))
+        merchant = m.group("merchant").strip()
+        mm, dd = m.group("date").split("/")
+        date_iso = f"{year}-{mm}-{dd}"
+        memo = "\n".join([
+            f"자동결제 문자입력 ({m.group('issuer')} 끝{m.group('mask')}) - 카테고리 확인 필요",
+            SMS_TEXT,
+        ])
+        create_page({
+            "항목": {"title": [{"text": {"content": merchant}}]},
+            "날짜": {"date": {"start": date_iso}},
+            "금액": {"number": amount},
+            "카테고리": {"select": {"name": "기타"}},
+            "결제수단": {"select": {"name": "카드"}},
+            "출처": {"select": {"name": "카드명세서"}},
+            "메모": {"rich_text": [{"text": {"content": memo}}]},
+        })
+        state[text_hash] = {"parsed": True, "card": m.group("issuer"), "merchant": merchant, "amount": amount, "date": date_iso}
+        save_state(state)
+        print(f"Recorded (자동결제, {m.group('issuer')}): {merchant} {amount:,.0f}원 on {date_iso}")
         return
 
     m = LOTTE_PATTERN.search(SMS_TEXT)
