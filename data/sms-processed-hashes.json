@@ -47,5 +47,51 @@
     "merchant": "별온누리약국",
     "amount": 33000.0,
     "date": "2026-08-24"
+  },
+  "78dfa6bdeb0f441aacb6b5ef96215cde364c0f999d93d22689020c196b058c50": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 8780.0,
+    "date": "2026-08-25"
+  },
+  "fe3ca6f210f7a2a2cfb77a799dd49038fdcc6c7f74d0e4ab43cbc538b688d102": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 9900.0,
+    "date": "2026-08-25"
+  },
+  "96450b5388bdbffc0c6d69de7786d1da7277b169aa18c67f4da5dc465eb44c08": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 54350.0,
+    "date": "2026-08-25"
+  },
+  "43f9041212bc3caa19573ca139efeed81c17b3b6fa0e4742dd838df47c86d5ea": {
+    "parsed": false,
+    "recorded_at": "2026-08-25"
+  },
+  "6eae966d4979604a3d894ef27e91b0da7135842b230211ed504be976dc42fa64": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 54350.0,
+    "date": "2026-08-25"
+  },
+  "8fe3874b79b464afc79c97890e21b13ee2b6b4f29bac994537a0ca1a8d0650db": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "코레일유통주식회",
+    "amount": 22000.0,
+    "date": "2026-08-26"
+  },
+  "0e1a1eb7be231a64ae7ee46211b8aea119d311b702797328b7b0990df0e53ae9": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "에이치에스홀딩스",
+    "amount": 17000.0,
+    "date": "2026-08-26"
   }
 }
