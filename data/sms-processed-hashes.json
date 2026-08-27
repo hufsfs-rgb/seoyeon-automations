@@ -103,5 +103,12 @@
     "merchant": "아파트관리비",
     "amount": 397780.0,
     "date": "2026-08-25"
+  },
+  "105c68f55cfef5b984126bc1e6a560ee9a6a4bf5a2bff2785653391ebb9d6902": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 54350.0,
+    "date": "2026-08-25"
   }
 }
