@@ -89,5 +89,12 @@
     "merchant": "에이치에스홀딩스",
     "amount": 17000.0,
     "date": "2026-08-26"
+  },
+  "43f9041212bc3caa19573ca139efeed81c17b3b6fa0e4742dd838df47c86d5ea": {
+    "parsed": true,
+    "card": "삼성",
+    "cancelled_merchant": "쿠팡",
+    "amount": -54350.0,
+    "date": "2026-08-25"
   }
 }
