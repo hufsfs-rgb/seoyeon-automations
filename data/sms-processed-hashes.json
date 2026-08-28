@@ -128,5 +128,12 @@
   "5762fdd81df8ec396872f3bf8cef4a13fc0a0c8da67eb516f0fdcc50335f979e": {
     "parsed": false,
     "recorded_at": "2026-08-28"
+  },
+  "0f25d94465adbb3fc724127a8998ebb3f22f064c1ab0566945fe8d37f00fe0dd": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "코레일유통주",
+    "amount": 2300.0,
+    "date": "2026-08-29"
   }
 }
