@@ -170,5 +170,13 @@
     "merchant": "에이치에스홀딩스",
     "amount": 17000.0,
     "date": "2026-08-29"
+  },
+  "ed03ff6c26074110c34246076e657797ec1a80f0723e2fd760235fda8bffc9ad": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "IHERB IHERB.COM",
+    "fx": "USD30.19",
+    "krw_amount": null,
+    "date": "2026-08-29"
   }
 }
