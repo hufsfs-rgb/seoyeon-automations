@@ -80,6 +80,7 @@ EXACT_MERCHANT_OVERRIDES = {
 MERCHANT_CATEGORY_OVERRIDES = {
     "에이치에스홀딩스": ("교통", "광명역 주차장 사용요금"),
     "IHERB": ("생활", "iHerb 해외직구"),
+    "스시로": ("식비", "스시로(일식 체인)"),
 }
 
 
