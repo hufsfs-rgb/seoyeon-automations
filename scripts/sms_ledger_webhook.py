@@ -71,6 +71,12 @@ HANA_OVERSEAS_PATTERN = re.compile(
 
 # Known merchant name -> (category, memo note) overrides, confirmed by 대표님.
 # Anything not listed here defaults to 기타 + "카테고리 확인 필요" as before.
+# EXACT_MERCHANT_OVERRIDES matches only when the merchant text equals the key
+# exactly - use this when a substring match would wrongly catch other merchants
+# (e.g. "쿠팡" alone must not also match "쿠팡이츠" delivery orders).
+EXACT_MERCHANT_OVERRIDES = {
+    "쿠팡": ("생활", "쿠팡 마켓 구매"),
+}
 MERCHANT_CATEGORY_OVERRIDES = {
     "에이치에스홀딩스": ("교통", "광명역 주차장 사용요금"),
     "IHERB": ("생활", "iHerb 해외직구"),
@@ -78,6 +84,9 @@ MERCHANT_CATEGORY_OVERRIDES = {
 
 
 def resolve_category(merchant):
+    merchant_stripped = merchant.strip()
+    if merchant_stripped in EXACT_MERCHANT_OVERRIDES:
+        return EXACT_MERCHANT_OVERRIDES[merchant_stripped]
     for key, (category, note) in MERCHANT_CATEGORY_OVERRIDES.items():
         if key in merchant:
             return category, note
