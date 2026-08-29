@@ -185,5 +185,26 @@
     "merchant": "쿠팡",
     "amount": 5850.0,
     "date": "2026-08-29"
+  },
+  "6d401b0efd773fabba14930f067b715e3e57bc61bb063f25e78b36ebe483196e": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "에프알엘코리아(",
+    "amount": 39900.0,
+    "date": "2026-08-29"
+  },
+  "97abeb257b385ab95dea12eb59155ab6069283ebbabc1cdbd8df4a144148d0c2": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "에프알엘코리아(",
+    "amount": 7900.0,
+    "date": "2026-08-29"
+  },
+  "9aa8611b2284897d04b861100b79883a2d0d35a648e06e0d78e00a43540ba819": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "(주)스시로한국연",
+    "amount": 34500.0,
+    "date": "2026-08-29"
   }
 }
