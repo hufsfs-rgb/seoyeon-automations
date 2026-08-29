@@ -69,6 +69,21 @@ HANA_OVERSEAS_PATTERN = re.compile(
 )
 
 
+# Known merchant name -> (category, memo note) overrides, confirmed by 대표님.
+# Anything not listed here defaults to 기타 + "카테고리 확인 필요" as before.
+MERCHANT_CATEGORY_OVERRIDES = {
+    "에이치에스홀딩스": ("교통", "광명역 주차장 사용요금"),
+    "IHERB": ("생활", "iHerb 해외직구"),
+}
+
+
+def resolve_category(merchant):
+    for key, (category, note) in MERCHANT_CATEGORY_OVERRIDES.items():
+        if key in merchant:
+            return category, note
+    return "기타", "카테고리 확인 필요"
+
+
 def call(method, path, body=None):
     url = API_BASE + path
     data = json.dumps(body).encode("utf-8") if body is not None else None
@@ -131,15 +146,16 @@ def main():
         payment = m.group("payment")
         mm, dd = m.group("date").split("/")
         date_iso = f"{year}-{mm}-{dd}"
+        category, note = resolve_category(merchant)
         memo = "\n".join([
-            f"문자 자동입력 ({issuer_label} 끝{m.group('mask')}, {payment}) - 카테고리 확인 필요",
+            f"문자 자동입력 ({issuer_label} 끝{m.group('mask')}, {payment}) - {note}",
             SMS_TEXT,
         ])
         create_page({
             "항목": {"title": [{"text": {"content": merchant}}]},
             "날짜": {"date": {"start": date_iso}},
             "금액": {"number": amount},
-            "카테고리": {"select": {"name": "기타"}},
+            "카테고리": {"select": {"name": category}},
             "결제수단": {"select": {"name": "카드"}},
             "출처": {"select": {"name": "카드명세서"}},
             "메모": {"rich_text": [{"text": {"content": memo}}]},
@@ -180,15 +196,16 @@ def main():
         merchant = m.group("merchant").strip()
         mm, dd = m.group("date").split("/")
         date_iso = f"{year}-{mm}-{dd}"
+        category, note = resolve_category(merchant)
         memo = "\n".join([
-            f"자동결제 문자입력 ({m.group('issuer')} 끝{m.group('mask')}) - 카테고리 확인 필요",
+            f"자동결제 문자입력 ({m.group('issuer')} 끝{m.group('mask')}) - {note}",
             SMS_TEXT,
         ])
         create_page({
             "항목": {"title": [{"text": {"content": merchant}}]},
             "날짜": {"date": {"start": date_iso}},
             "금액": {"number": amount},
-            "카테고리": {"select": {"name": "기타"}},
+            "카테고리": {"select": {"name": category}},
             "결제수단": {"select": {"name": "카드"}},
             "출처": {"select": {"name": "카드명세서"}},
             "메모": {"rich_text": [{"text": {"content": memo}}]},
@@ -205,15 +222,16 @@ def main():
         payment = m.group("payment")
         mm, dd = m.group("date").split("/")
         date_iso = f"{year}-{mm}-{dd}"
+        category, note = resolve_category(merchant)
         memo = "\n".join([
-            f"문자 자동입력 (롯데카드 끝{m.group('mask')}, {payment}) - 카테고리 확인 필요",
+            f"문자 자동입력 (롯데카드 끝{m.group('mask')}, {payment}) - {note}",
             SMS_TEXT,
         ])
         create_page({
             "항목": {"title": [{"text": {"content": merchant}}]},
             "날짜": {"date": {"start": date_iso}},
             "금액": {"number": amount},
-            "카테고리": {"select": {"name": "기타"}},
+            "카테고리": {"select": {"name": category}},
             "결제수단": {"select": {"name": "카드"}},
             "출처": {"select": {"name": "카드명세서"}},
             "메모": {"rich_text": [{"text": {"content": memo}}]},
@@ -234,20 +252,21 @@ def main():
         # Prioritize completeness over precision: apply that day's published rate
         # automatically (approximate - doesn't include the card issuer's actual FX
         # fee/spread) rather than leaving the amount blank pending manual entry.
+        category, note = resolve_category(merchant)
         rate = fetch_krw_rate(date_iso, currency)
         if rate is not None:
             krw_amount = round(fx_amount * rate)
             title = merchant
             memo = "\n".join([
                 f"하나카드 해외결제 - {currency}{fx_amount:,.2f} → 자동 환율({date_iso} ECB 기준 1{currency}={rate:,.2f}원) 적용 "
-                "- 카드사 실제 청구액(수수료 포함)과 다를 수 있음, 카테고리 확인 필요",
+                f"- 카드사 실제 청구액(수수료 포함)과 다를 수 있음, {note}",
                 SMS_TEXT,
             ])
             properties = {
                 "항목": {"title": [{"text": {"content": title}}]},
                 "날짜": {"date": {"start": date_iso}},
                 "금액": {"number": krw_amount},
-                "카테고리": {"select": {"name": "기타"}},
+                "카테고리": {"select": {"name": category}},
                 "결제수단": {"select": {"name": "카드"}},
                 "출처": {"select": {"name": "카드명세서"}},
                 "메모": {"rich_text": [{"text": {"content": memo}}]},
@@ -263,7 +282,7 @@ def main():
             properties = {
                 "항목": {"title": [{"text": {"content": title}}]},
                 "날짜": {"date": {"start": date_iso}},
-                "카테고리": {"select": {"name": "기타"}},
+                "카테고리": {"select": {"name": category}},
                 "결제수단": {"select": {"name": "카드"}},
                 "출처": {"select": {"name": "카드명세서"}},
                 "메모": {"rich_text": [{"text": {"content": memo}}]},
