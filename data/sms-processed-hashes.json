@@ -178,5 +178,12 @@
     "fx": "USD30.19",
     "krw_amount": null,
     "date": "2026-08-29"
+  },
+  "061e5ca3419e043a042967536fe3fffe16ca541b8c3b5b82446fbd565409288b": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 5850.0,
+    "date": "2026-08-29"
   }
 }
