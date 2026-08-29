@@ -149,5 +149,12 @@
     "merchant": "코레일유통주식회",
     "amount": 11000.0,
     "date": "2026-08-29"
+  },
+  "e33847d844b8cd23e1fc230ee39924f437137cff6ab072e9bb77f67893cd3d8d": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "코레일유통주식회",
+    "amount": 1100.0,
+    "date": "2026-08-29"
   }
 }
