@@ -135,5 +135,12 @@
     "merchant": "코레일유통주",
     "amount": 2300.0,
     "date": "2026-08-29"
+  },
+  "00fdb5997eba1f759d943ca2bda3cdeebbdfd27df92c618e3bcb8de81a1bc772": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "성서약국",
+    "amount": 14000.0,
+    "date": "2026-08-29"
   }
 }
