@@ -96,5 +96,87 @@
     "cancelled_merchant": "쿠팡",
     "amount": -54350.0,
     "date": "2026-08-25"
+  },
+  "b986e2acc503f318c8789aca22e8de8295afc0884d92160463a86c8dcc7220e1": {
+    "parsed": true,
+    "card": "삼성카드",
+    "merchant": "아파트관리비",
+    "amount": 397780.0,
+    "date": "2026-08-25"
+  },
+  "105c68f55cfef5b984126bc1e6a560ee9a6a4bf5a2bff2785653391ebb9d6902": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 54350.0,
+    "date": "2026-08-25"
+  },
+  "50c3a680c6605a042abd2d518b0485a87a4be4ef752d07cfe4efaebba6fb4f2d": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 70200.0,
+    "date": "2026-08-27"
+  },
+  "5dda72ce0f2fcd1efe7ec2b79afddc7a648a8510dd5b76175daaaa220efdeceb": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 35880.0,
+    "date": "2026-08-27"
+  },
+  "5762fdd81df8ec396872f3bf8cef4a13fc0a0c8da67eb516f0fdcc50335f979e": {
+    "parsed": false,
+    "recorded_at": "2026-08-28"
+  },
+  "0f25d94465adbb3fc724127a8998ebb3f22f064c1ab0566945fe8d37f00fe0dd": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "코레일유통주",
+    "amount": 2300.0,
+    "date": "2026-08-29"
+  },
+  "00fdb5997eba1f759d943ca2bda3cdeebbdfd27df92c618e3bcb8de81a1bc772": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "성서약국",
+    "amount": 14000.0,
+    "date": "2026-08-29"
+  },
+  "31c547eb325437e2f84c634a5596c98587b4f60e657b771c5050526ebc9daec3": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "코레일유통주식회",
+    "amount": 11000.0,
+    "date": "2026-08-29"
+  },
+  "e33847d844b8cd23e1fc230ee39924f437137cff6ab072e9bb77f67893cd3d8d": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "코레일유통주식회",
+    "amount": 1100.0,
+    "date": "2026-08-29"
+  },
+  "1d714abe5c4d94707c3da82740fc50a86f6eb9e48233e99d02a3dd718fb6d049": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "코레일유통주식회",
+    "amount": 8100.0,
+    "date": "2026-08-29"
+  },
+  "d6b66e23befc123be576c6a727f02b7f6a7697239d9a6ab70a80a8e4e6346627": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "에이치에스홀딩스",
+    "amount": 17000.0,
+    "date": "2026-08-29"
+  },
+  "ed03ff6c26074110c34246076e657797ec1a80f0723e2fd760235fda8bffc9ad": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "IHERB IHERB.COM",
+    "fx": "USD30.19",
+    "krw_amount": null,
+    "date": "2026-08-29"
   }
 }
