@@ -213,5 +213,12 @@
     "merchant": "(주)우아한형제들",
     "amount": 24400.0,
     "date": "2026-08-30"
+  },
+  "57b85ab10b0430e2c4466a47da5b89a18b438ac3a2bb946e30c460ece513c6e7": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "CJ올리브영",
+    "amount": 32750.0,
+    "date": "2026-08-30"
   }
 }
