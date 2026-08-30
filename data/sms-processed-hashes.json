@@ -206,5 +206,12 @@
     "merchant": "(주)스시로한국연",
     "amount": 34500.0,
     "date": "2026-08-29"
+  },
+  "1da7575855b9254a0581fe2f6a5bb7b14099a3662ad3125cbc6a735fd1ada4bb": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "(주)우아한형제들",
+    "amount": 24400.0,
+    "date": "2026-08-30"
   }
 }
