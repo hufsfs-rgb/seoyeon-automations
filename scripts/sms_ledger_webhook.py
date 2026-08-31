@@ -82,13 +82,29 @@ MERCHANT_CATEGORY_OVERRIDES = {
     "IHERB": ("생활", "iHerb 해외직구"),
     "스시로": ("식비", "스시로(일식 체인)"),
     "이마트": ("식비", "이마트/이마트에브리데이 등 마트 체인, 장보기"),
+    "올리브영": ("생활", "CJ올리브영(드럭스토어/뷰티 체인)"),
+    "비지에프": ("식비", "CU 편의점(BGF리테일)"),
+    "우아한형제들": ("식비", "배달의민족 주문"),
+    "코레일유통": ("식비", "기차역 매점/편의점(스토리웨이 등)"),
+    "에프알엘코리아": ("생활", "유니클로/GU(패스트리테일링코리아)"),
+    "ANTHROPIC": ("고정지출", "Claude 구독료"),
+    "케이엠파크": ("교통", "주차장 사용요금(추정)"),
 }
+
+# Legally required "(광고)" tag on Korean marketing SMS - filter these out before
+# they hit the transaction parsers so they don't get logged as a fake "파싱 실패"
+# ledger row (they never contained a real transaction to parse).
+AD_SMS_MARKER = "(광고)"
 
 
 def resolve_category(merchant):
     merchant_stripped = merchant.strip()
     if merchant_stripped in EXACT_MERCHANT_OVERRIDES:
         return EXACT_MERCHANT_OVERRIDES[merchant_stripped]
+    if merchant_stripped.endswith("약국"):
+        return "의료", f"{merchant_stripped} (약국)"
+    if "관리단" in merchant_stripped or merchant_stripped.endswith("관리비"):
+        return "고정지출", f"{merchant_stripped} (아파트관리비 추정)"
     for key, (category, note) in MERCHANT_CATEGORY_OVERRIDES.items():
         if key in merchant:
             return category, note
@@ -143,6 +159,12 @@ def main():
     state = load_state()
     if text_hash in state:
         print("Already processed (duplicate webhook call), skipping.")
+        return
+
+    if AD_SMS_MARKER in SMS_TEXT:
+        print("Advertisement SMS (contains legally-required (광고) tag), skipping - not a transaction.")
+        state[text_hash] = {"parsed": False, "skipped": "advertisement"}
+        save_state(state)
         return
 
     tz = ZoneInfo("Asia/Seoul")
