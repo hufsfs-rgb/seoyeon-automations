@@ -220,5 +220,12 @@
     "merchant": "CJ올리브영",
     "amount": 32750.0,
     "date": "2026-08-30"
+  },
+  "2df7c8a09d9a3266300921ea84d2523536d653b21b5199a94b126e7ebe92ef39": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "주식회사비지에프",
+    "amount": 4600.0,
+    "date": "2026-08-31"
   }
 }
