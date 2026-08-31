@@ -14,4 +14,5 @@ jobs:
       - name: Update semiconductor tracker
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: python3 scripts/semiconductor_tracker.py

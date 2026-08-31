@@ -3,6 +3,7 @@ import os
 import urllib.request
 
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
+NTFY_TOPIC = os.environ.get("NTFY_TOPIC")
 API_BASE = "https://api.notion.com/v1"
 HEADERS = {
     "Authorization": f"Bearer {NOTION_TOKEN}",
@@ -59,6 +60,27 @@ def check_index(item_code):
     close_val = float(data["closePrice"].replace(",", ""))
     trade_date = data["localTradedAt"][:10]
     return close_val, trade_date
+
+
+def notify_failure(message):
+    # Previously check_stock/check_index/check_sox failures were only printed to
+    # the (unwatched) Actions log, so weeks of silent gaps went unnoticed. Push
+    # a real alert instead so a failed fetch actually surfaces.
+    if not NTFY_TOPIC:
+        print(f"(NTFY_TOPIC not set, can't push failure alert) {message}")
+        return
+    payload = {"topic": NTFY_TOPIC, "title": "반도체 트래커 조회 실패 ⚠️", "message": message}
+    req = urllib.request.Request(
+        "https://ntfy.sh",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json; charset=utf-8"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            resp.read()
+    except Exception as e:
+        print(f"Failure alert push also failed: {e}")
 
 
 def call_notion(method, path, body=None):
@@ -136,6 +158,7 @@ def main():
             close_val, ratio, trade_date = check_stock(code, name)
         except Exception as e:
             print(f"{name} 조회 실패: {e}")
+            notify_failure(f"{name} 종가 조회 실패 - {e}")
             continue
 
         if already_recorded(name, trade_date):
@@ -159,6 +182,7 @@ def main():
         kospi_close, kospi_date = check_index("KOSPI")
     except Exception as e:
         print(f"코스피지수 조회 실패: {e}")
+        notify_failure(f"코스피지수 조회 실패 - {e}")
     else:
         if already_recorded("코스피지수", kospi_date):
             print(f"코스피지수 {kospi_date}: 이미 기록됨, 건너뜀")
@@ -182,6 +206,7 @@ def main():
         sox_close, sox_ratio, sox_date = check_sox()
     except Exception as e:
         print(f"필라델피아반도체지수(SOX) 조회 실패: {e}")
+        notify_failure(f"필라델피아반도체지수(SOX) 조회 실패 - {e}")
     else:
         query_body = {
             "filter": {
