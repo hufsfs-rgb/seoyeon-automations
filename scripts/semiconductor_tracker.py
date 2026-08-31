@@ -153,6 +153,27 @@ def check_stock(code, name):
 
 
 def main():
+    # NOTE (2026-08-31): individual stocks (check_stock, via Naver's per-stock
+    # "integration" endpoint) and the KOSPI index (check_index, via a separate
+    # "basic" endpoint) were found to report their own trade date independently
+    # -- on days where the two endpoints refresh at slightly different times
+    # (very common when this workflow's GitHub Actions cron run is itself
+    # delayed by hours), the same KRX session ended up split across two
+    # different dates in the DB (e.g. stocks filed under "2026-08-20" while
+    # KOSPI from the exact same run was filed under "2026-08-21"). Since all
+    # 4 KRX-listed names + the KOSPI index trade on the same exchange/session,
+    # fetch KOSPI's date FIRST and use it as the shared canonical date for the
+    # KRX stocks too, instead of trusting each stock's own possibly-lagged
+    # bizdate. SOX is a separate US market/session and is deliberately left
+    # alone -- unifying it with the KRX date would be wrong (it always closes
+    # on the prior calendar day relative to the KRX session it's compared to).
+    try:
+        kospi_close, kospi_date = check_index("KOSPI")
+    except Exception as e:
+        print(f"코스피지수 조회 실패: {e}")
+        notify_failure(f"코스피지수 조회 실패 - {e}")
+        kospi_close, kospi_date = None, None
+
     for code, name, sector in STOCKS:
         try:
             close_val, ratio, trade_date = check_stock(code, name)
@@ -160,6 +181,10 @@ def main():
             print(f"{name} 조회 실패: {e}")
             notify_failure(f"{name} 종가 조회 실패 - {e}")
             continue
+
+        if kospi_date and trade_date != kospi_date:
+            print(f"{name}: bizdate({trade_date})가 코스피 기준일({kospi_date})과 달라 코스피 기준일로 통일")
+            trade_date = kospi_date
 
         if already_recorded(name, trade_date):
             print(f"{name} {trade_date}: 이미 기록됨, 건너뜀")
@@ -178,12 +203,7 @@ def main():
         call_notion("POST", "/pages", body)
         print(f"{name} {trade_date}: {close_val}원 ({ratio}%) 기록 완료")
 
-    try:
-        kospi_close, kospi_date = check_index("KOSPI")
-    except Exception as e:
-        print(f"코스피지수 조회 실패: {e}")
-        notify_failure(f"코스피지수 조회 실패 - {e}")
-    else:
+    if kospi_close is not None:
         if already_recorded("코스피지수", kospi_date):
             print(f"코스피지수 {kospi_date}: 이미 기록됨, 건너뜀")
         else:
