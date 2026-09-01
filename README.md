@@ -19,6 +19,7 @@
 | `budget-check.yml` | 매일 21:00 | 이번달 카테고리별 지출이 예산 70/90/100% 도달시 알림 |
 | `weekly-retro-push.yml` | 일요일 22:05 | 주간 회고 준비 알림 |
 | `monthly-report.yml` | 매월 1일 09:10 | 지난달 지출 집계 리포트를 가계부 DB에 추가 |
+| `sms-ledger-webhook.yml` | 실시간(repository_dispatch) | iPhone Shortcuts가 전달한 삼성/하나/롯데카드 승인·취소·자동결제 문자를 파싱해 가계부 DB에 자동 기록 |
 
 ## 클라우드 루틴 (claude.ai/code/routines, 이 저장소 밖에서 실행)
 
