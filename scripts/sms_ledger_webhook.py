@@ -150,6 +150,12 @@ def create_page(properties):
     call("POST", "/pages", {"parent": {"database_id": LEDGER_DB_ID}, "properties": properties})
 
 
+def ym_property(date_iso):
+    # "연월" (YYYY-MM select) powers the 가계부's monthly filter/group views -
+    # without this, new rows never show up when you filter by month there.
+    return {"select": {"name": date_iso[:7]}}
+
+
 def main():
     if not SMS_TEXT.strip():
         print("No SMS text provided.")
@@ -192,6 +198,7 @@ def main():
             "결제수단": {"select": {"name": "카드"}},
             "출처": {"select": {"name": "카드명세서"}},
             "메모": {"rich_text": [{"text": {"content": memo}}]},
+            "연월": ym_property(date_iso),
         })
         state[text_hash] = {"parsed": True, "card": m.group("issuer"), "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
@@ -217,6 +224,7 @@ def main():
             "결제수단": {"select": {"name": "카드"}},
             "출처": {"select": {"name": "카드명세서"}},
             "메모": {"rich_text": [{"text": {"content": memo}}]},
+            "연월": ym_property(date_iso),
         })
         state[text_hash] = {"parsed": True, "card": m.group("issuer"), "cancelled_merchant": merchant, "amount": -amount, "date": date_iso}
         save_state(state)
@@ -242,6 +250,7 @@ def main():
             "결제수단": {"select": {"name": "카드"}},
             "출처": {"select": {"name": "카드명세서"}},
             "메모": {"rich_text": [{"text": {"content": memo}}]},
+            "연월": ym_property(date_iso),
         })
         state[text_hash] = {"parsed": True, "card": m.group("issuer"), "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
@@ -268,6 +277,7 @@ def main():
             "결제수단": {"select": {"name": "카드"}},
             "출처": {"select": {"name": "카드명세서"}},
             "메모": {"rich_text": [{"text": {"content": memo}}]},
+            "연월": ym_property(date_iso),
         })
         state[text_hash] = {"parsed": True, "card": "롯데", "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
@@ -303,6 +313,7 @@ def main():
                 "결제수단": {"select": {"name": "카드"}},
                 "출처": {"select": {"name": "카드명세서"}},
                 "메모": {"rich_text": [{"text": {"content": memo}}]},
+                "연월": ym_property(date_iso),
             }
         else:
             # Rate lookup failed - still record the transaction (don't drop it),
@@ -319,6 +330,7 @@ def main():
                 "결제수단": {"select": {"name": "카드"}},
                 "출처": {"select": {"name": "카드명세서"}},
                 "메모": {"rich_text": [{"text": {"content": memo}}]},
+                "연월": ym_property(date_iso),
             }
 
         create_page(properties)
@@ -343,6 +355,7 @@ def main():
         "날짜": {"date": {"start": today_iso}},
         "카테고리": {"select": {"name": "기타"}},
         "메모": {"rich_text": [{"text": {"content": SMS_TEXT}}]},
+        "연월": ym_property(today_iso),
     })
     state[text_hash] = {"parsed": False, "recorded_at": today_iso}
     save_state(state)
