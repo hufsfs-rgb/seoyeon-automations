@@ -49,6 +49,17 @@ LOTTE_PATTERN = re.compile(
     r"누적(?P<cumulative>[\d,]+)원"
 )
 
+# Lotte Card cancellation SMS - same shape as LOTTE_PATTERN but "취소" instead of
+# "승인", mirroring how CANCEL_PATTERN relates to DOMESTIC_PATTERN for 삼성/하나.
+# No real example seen yet (no Lotte cancellation has come through), so this is
+# inferred from the confirmed LOTTE_PATTERN shape rather than a captured SMS.
+LOTTE_CANCEL_PATTERN = re.compile(
+    r"(?P<merchant>[^\n]+?)\s*\n\s*-?(?P<amount>[\d,]+)원\s*취소\s*\n\s*"
+    r"(?P<name>\S+)\s+롯데(?P<mask>[\d*]+)\s*\n\s*"
+    r"(?P<payment>\S+)\s+(?P<date>\d{2}/\d{2})\s+(?P<time>\d{2}:\d{2})\s*\n\s*"
+    r"누적(?P<cumulative>[\d,]+)원"
+)
+
 # Recurring auto-payment ("자동결제") SMS - different shape entirely, no name/누적
 # field, issuer is bracketed with the word 카드 already included, e.g.:
 # "[Web발신]\n[삼성카드]8778\n자동결제 08/25접수\n아파트관리비\n397,780원"
@@ -282,6 +293,31 @@ def main():
         state[text_hash] = {"parsed": True, "card": "롯데", "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
         print(f"Recorded (롯데카드): {merchant} {amount:,.0f}원 on {date_iso}")
+        return
+
+    m = LOTTE_CANCEL_PATTERN.search(SMS_TEXT)
+    if m:
+        amount = float(m.group("amount").replace(",", ""))
+        merchant = m.group("merchant").strip()
+        mm, dd = m.group("date").split("/")
+        date_iso = f"{year}-{mm}-{dd}"
+        memo = "\n".join([
+            f"결제 취소 - 이전 승인 건 상쇄용 마이너스 기록 (롯데카드 끝{m.group('mask')})",
+            SMS_TEXT,
+        ])
+        create_page({
+            "항목": {"title": [{"text": {"content": f"[취소] {merchant}"}}]},
+            "날짜": {"date": {"start": date_iso}},
+            "금액": {"number": -amount},
+            "카테고리": {"select": {"name": "기타"}},
+            "결제수단": {"select": {"name": "카드"}},
+            "출처": {"select": {"name": "카드명세서"}},
+            "메모": {"rich_text": [{"text": {"content": memo}}]},
+            "연월": ym_property(date_iso),
+        })
+        state[text_hash] = {"parsed": True, "card": "롯데", "cancelled_merchant": merchant, "amount": -amount, "date": date_iso}
+        save_state(state)
+        print(f"Recorded cancellation (롯데카드): {merchant} -{amount:,.0f}원 on {date_iso}")
         return
 
     m = HANA_OVERSEAS_PATTERN.search(SMS_TEXT)

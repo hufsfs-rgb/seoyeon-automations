@@ -1,5 +1,6 @@
-# Receives Samsung Card approval SMS text forwarded from an iPhone Shortcuts
-# automation (repository_dispatch webhook) and records it in the 가계부 Notion DB.
+# Receives 삼성/하나/롯데카드 approval, cancellation, autopay, and Hana overseas
+# SMS text forwarded from an iPhone Shortcuts automation (repository_dispatch
+# webhook) and records it in the 가계부 Notion DB.
 name: SMS Ledger Webhook
 
 on:
