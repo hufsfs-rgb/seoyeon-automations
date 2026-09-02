@@ -248,5 +248,9 @@
     "merchant": "삼성영어셀레나마",
     "amount": 260000.0,
     "date": "2026-09-01"
+  },
+  "9d2f834533346eed10d87dfcb68d1e8ef219dbac9569a3d6776d4da5930ba18a": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
