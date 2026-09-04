@@ -252,5 +252,12 @@
   "9d2f834533346eed10d87dfcb68d1e8ef219dbac9569a3d6776d4da5930ba18a": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "a80370ca38941370940f68e4d71de56b3baf24680e7a794c7b5ff7ae30e4383b": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "(주)오이삼계탕",
+    "amount": 38000.0,
+    "date": "2026-09-04"
   }
 }
