@@ -145,8 +145,18 @@ FIXED_EXPENSE_MERCHANT_MAP = {
 }
 
 
-def resolve_category(merchant):
+# "카카오"는 카카오페이/카카오T/선물하기 등 완전히 다른 결제를 전부 이 이름 하나로
+# 뭉뚱그리는 매우 흔한 가맹점명이라, 이름만으로는 절대 특정 구독을 짚어낼 수 없음.
+# 멜론(Melon) 구독만은 금액이 아주 특이해서(프로모션 110원 -> 정상가 8,690원)
+# "가맹점=카카오 AND 금액=이 중 하나"일 때만 안전하게 특정 지을 수 있음 - 다른 카카오
+# 결제와 절대 안 겹치도록 금액까지 같이 확인하는 구조로 좁혀서 등록함(2026-09-05).
+KAKAO_MELON_AMOUNTS = {110, 8690}
+
+
+def resolve_category(merchant, amount=None):
     merchant_stripped = merchant.strip()
+    if merchant_stripped == "카카오" and amount in KAKAO_MELON_AMOUNTS:
+        return "고정지출", f"멜론(Melon) 정기결제 (카카오, {amount:,.0f}원)"
     if merchant_stripped in EXACT_MERCHANT_OVERRIDES:
         return EXACT_MERCHANT_OVERRIDES[merchant_stripped]
     if merchant_stripped.endswith("약국"):
@@ -191,10 +201,13 @@ def check_fixed_expense(merchant, krw_amount):
     if krw_amount is None:
         return
     item_name = None
-    for keyword, name in FIXED_EXPENSE_MERCHANT_MAP.items():
-        if keyword in merchant:
-            item_name = name
-            break
+    if merchant.strip() == "카카오" and krw_amount in KAKAO_MELON_AMOUNTS:
+        item_name = "멜론(Melon, 카카오 결제)"
+    else:
+        for keyword, name in FIXED_EXPENSE_MERCHANT_MAP.items():
+            if keyword in merchant:
+                item_name = name
+                break
     if item_name is None:
         return
 
@@ -288,7 +301,7 @@ def main():
         payment = m.group("payment")
         mm, dd = m.group("date").split("/")
         date_iso = f"{year}-{mm}-{dd}"
-        category, note = resolve_category(merchant)
+        category, note = resolve_category(merchant, amount)
         memo = "\n".join([
             f"문자 자동입력 ({issuer_label} 끝{m.group('mask')}, {payment}) - {note}",
             SMS_TEXT,
@@ -341,7 +354,7 @@ def main():
         merchant = m.group("merchant").strip()
         mm, dd = m.group("date").split("/")
         date_iso = f"{year}-{mm}-{dd}"
-        category, note = resolve_category(merchant)
+        category, note = resolve_category(merchant, amount)
         memo = "\n".join([
             f"자동결제 문자입력 ({m.group('issuer')} 끝{m.group('mask')}) - {note}",
             SMS_TEXT,
@@ -369,7 +382,7 @@ def main():
         payment = m.group("payment")
         mm, dd = m.group("date").split("/")
         date_iso = f"{year}-{mm}-{dd}"
-        category, note = resolve_category(merchant)
+        category, note = resolve_category(merchant, amount)
         memo = "\n".join([
             f"문자 자동입력 (롯데카드 끝{m.group('mask')}, {payment}) - {note}",
             SMS_TEXT,
@@ -425,7 +438,7 @@ def main():
         # Prioritize completeness over precision: apply that day's published rate
         # automatically (approximate - doesn't include the card issuer's actual FX
         # fee/spread) rather than leaving the amount blank pending manual entry.
-        category, note = resolve_category(merchant)
+        category, note = resolve_category(merchant, fx_amount)
         rate = fetch_krw_rate(date_iso, currency)
         if rate is not None:
             krw_amount = round(fx_amount * rate)
