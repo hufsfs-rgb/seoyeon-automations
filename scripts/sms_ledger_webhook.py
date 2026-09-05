@@ -7,8 +7,10 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
+NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "")
 SMS_TEXT = os.environ.get("SMS_TEXT", "")
 API_BASE = "https://api.notion.com/v1"
+FIXED_EXPENSE_DB_ID = "a0c2dc43-360b-41e5-ac63-206bf1a05c5d"
 HEADERS = {
     "Authorization": f"Bearer {NOTION_TOKEN}",
     "Notion-Version": "2022-06-28",
@@ -132,6 +134,17 @@ FOOD_KEYWORDS = [
 ]
 
 
+# Card-billed merchants that are confirmed to correspond to a specific 고정지출
+# DB item (항목 title must match exactly). 대표님 지시(2026-09-05): 고정지출 지출이
+# 감지될 때마다 예상 금액과 맞는지/바뀌었는지 매번 push로 확인받을 것.
+# Only include entries where the merchant text -> 고정지출 item mapping is
+# actually confirmed from a real SMS sample - don't guess at unconfirmed ones.
+FIXED_EXPENSE_MERCHANT_MAP = {
+    "ANTHROPIC": "Claude Pro",
+    "관리비": "아파트 관리비",
+}
+
+
 def resolve_category(merchant):
     merchant_stripped = merchant.strip()
     if merchant_stripped in EXACT_MERCHANT_OVERRIDES:
@@ -155,6 +168,58 @@ def call(method, path, body=None):
     req = urllib.request.Request(url, data=data, headers=HEADERS, method=method)
     with urllib.request.urlopen(req) as resp:
         return json.loads(resp.read().decode("utf-8"))
+
+
+def push_ntfy(title, message):
+    if not NTFY_TOPIC:
+        print("NTFY_TOPIC not set, skipping push:", title, message)
+        return
+    payload = {"topic": NTFY_TOPIC, "title": title, "message": message}
+    req = urllib.request.Request(
+        "https://ntfy.sh",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json; charset=utf-8"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req) as resp:
+        resp.read()
+
+
+def check_fixed_expense(merchant, krw_amount):
+    """If this merchant is a known 고정지출 item, push a confirmation asking
+    whether the detected amount matches the expected one or has changed."""
+    if krw_amount is None:
+        return
+    item_name = None
+    for keyword, name in FIXED_EXPENSE_MERCHANT_MAP.items():
+        if keyword in merchant:
+            item_name = name
+            break
+    if item_name is None:
+        return
+
+    try:
+        resp = call("POST", f"/databases/{FIXED_EXPENSE_DB_ID}/query", {
+            "filter": {"property": "항목", "title": {"equals": item_name}}
+        })
+    except Exception as e:
+        print(f"Fixed-expense lookup failed for {item_name}: {e}")
+        return
+    rows = resp.get("results", [])
+    if not rows:
+        return
+    expected = rows[0]["properties"].get("금액", {}).get("number")
+
+    if expected is not None and abs(expected - krw_amount) < 1:
+        title = f"고정지출 확인: {item_name}"
+        message = f"{krw_amount:,.0f}원 - 예상 금액과 동일해요, 변경 없음."
+    elif expected is not None:
+        title = f"고정지출 금액 변경 감지: {item_name}"
+        message = f"예상 {expected:,.0f}원 -> 실제 {krw_amount:,.0f}원 (차이 {krw_amount - expected:+,.0f}원). 맞게 바뀐 건지 확인해주세요!"
+    else:
+        title = f"고정지출 감지: {item_name}"
+        message = f"{krw_amount:,.0f}원 결제됨 (고정지출 DB에 예상 금액 미등록)."
+    push_ntfy(title, message)
 
 
 def fetch_krw_rate(date_iso, currency):
@@ -238,6 +303,7 @@ def main():
             "메모": {"rich_text": [{"text": {"content": memo}}]},
             "연월": ym_property(date_iso),
         })
+        check_fixed_expense(merchant, amount)
         state[text_hash] = {"parsed": True, "card": m.group("issuer"), "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
         print(f"Recorded ({issuer_label}): {merchant} {amount:,.0f}원 on {date_iso}")
@@ -290,6 +356,7 @@ def main():
             "메모": {"rich_text": [{"text": {"content": memo}}]},
             "연월": ym_property(date_iso),
         })
+        check_fixed_expense(merchant, amount)
         state[text_hash] = {"parsed": True, "card": m.group("issuer"), "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
         print(f"Recorded (자동결제, {m.group('issuer')}): {merchant} {amount:,.0f}원 on {date_iso}")
@@ -397,6 +464,8 @@ def main():
             }
 
         create_page(properties)
+        if rate is not None:
+            check_fixed_expense(merchant, krw_amount)
         state[text_hash] = {
             "parsed": True,
             "card": "hana_overseas",

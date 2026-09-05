@@ -14,4 +14,5 @@ jobs:
       - name: Reflect due 계좌이체 fixed expenses into 가계부
         env:
           NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
         run: python3 scripts/monthly_fixed_expense_reflect.py

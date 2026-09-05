@@ -6,6 +6,7 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
+NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "")
 API_BASE = "https://api.notion.com/v1"
 HEADERS = {
     "Authorization": f"Bearer {NOTION_TOKEN}",
@@ -27,6 +28,21 @@ def call(method, path, body=None):
     req = urllib.request.Request(url, data=data, headers=HEADERS, method=method)
     with urllib.request.urlopen(req) as resp:
         return json.loads(resp.read().decode("utf-8"))
+
+
+def push_ntfy(title, message):
+    if not NTFY_TOPIC:
+        print("NTFY_TOPIC not set, skipping push:", title, message)
+        return
+    payload = {"topic": NTFY_TOPIC, "title": title, "message": message}
+    req = urllib.request.Request(
+        "https://ntfy.sh",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json; charset=utf-8"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req) as resp:
+        resp.read()
 
 
 def rich_text_plain(rt_list):
@@ -124,6 +140,10 @@ def main():
 
         date_iso = today.isoformat()
         create_ledger_row(item_name, ledger_category, amount, date_iso, ym, existing_memo)
+        push_ntfy(
+            f"고정지출 반영: {item_name}",
+            f"{amount:,.0f}원 예상 금액으로 가계부에 반영했어요. 실제 계좌 청구액이 다르면 알려주세요!",
+        )
         reflected.append((item_name, amount))
         print(f"Reflected: {item_name} {amount:,.0f}원 on {date_iso}")
 
