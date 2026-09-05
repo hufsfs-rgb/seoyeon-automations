@@ -273,5 +273,12 @@
     "merchant": "송도클로버동물병",
     "amount": 16000.0,
     "date": "2026-09-05"
+  },
+  "3d26552750f468731d58df8405fda8cbc498d5d96afe8b62a41f79131a078683": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 36680.0,
+    "date": "2026-09-05"
   }
 }
