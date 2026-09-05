@@ -266,5 +266,12 @@
     "merchant": "카카오",
     "amount": 110.0,
     "date": "2026-09-05"
+  },
+  "9f66cf09ea2db81159b9923ce1954576f694446cd1cc5de260c0b13cfb9ef2d3": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "송도클로버동물병",
+    "amount": 16000.0,
+    "date": "2026-09-05"
   }
 }
