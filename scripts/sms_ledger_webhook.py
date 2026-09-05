@@ -107,6 +107,30 @@ MERCHANT_CATEGORY_OVERRIDES = {
 # ledger row (they never contained a real transaction to parse).
 AD_SMS_MARKER = "(광고)"
 
+# General food/restaurant-name keywords - 대표님 지시(2026-09-05): 누가 봐도 식당/음식점/
+# 프랜차이즈로 연상되는 이름이면 개별 등록 없이도 자동으로 식비 처리. MERCHANT_CATEGORY_OVERRIDES
+# 처럼 정확한 상호 전체를 몰라도 되도록 부분일치로 잡음 (예: "(주)오이삼계탕" -> "삼계탕" 매칭).
+FOOD_KEYWORDS = [
+    # 한식 메뉴/음식점 유형
+    "삼계탕", "국밥", "해장국", "순대국", "곰탕", "설렁탕", "갈비탕", "냉면", "막국수",
+    "치킨", "삼겹살", "갈비", "불고기", "고깃집", "곱창", "막창", "족발", "보쌈",
+    "김밥", "분식", "떡볶이", "순대", "튀김", "만두", "국수", "칼국수",
+    "돈까스", "돈가스", "백반", "한정식", "죽집", "본죽",
+    # 아시안/양식
+    "초밥", "스시", "우동", "라멘", "짜장면", "짬뽕", "중국집", "마라탕", "마라샹궈", "훠궈", "쌀국수",
+    "파스타", "스테이크", "버거", "샌드위치", "피자",
+    # 카페/디저트
+    "카페", "커피", "베이커리", "제과", "빵집", "디저트",
+    # 유명 프랜차이즈
+    "롯데리아", "맥도날드", "맘스터치", "버거킹", "서브웨이",
+    "스타벅스", "이디야", "투썸플레이스", "커피빈", "할리스", "메가커피", "빽다방", "컴포즈커피",
+    "교촌치킨", "굽네치킨", "네네치킨", "푸라닭", "페리카나", "bhc",
+    "도미노피자", "피자헛", "파파존스", "미스터피자",
+    "파리바게뜨", "뚜레쥬르", "던킨", "배스킨라빈스",
+    "김밥천국", "김가네", "한솥도시락",
+    "쿠팡이츠", "배달의민족", "요기요", "배민",
+]
+
 
 def resolve_category(merchant):
     merchant_stripped = merchant.strip()
@@ -119,6 +143,9 @@ def resolve_category(merchant):
     for key, (category, note) in MERCHANT_CATEGORY_OVERRIDES.items():
         if key in merchant:
             return category, note
+    for keyword in FOOD_KEYWORDS:
+        if keyword in merchant:
+            return "식비", f"가맹점명에 '{keyword}' 포함 - 식당/프랜차이즈로 자동 분류"
     return "기타", "카테고리 확인 필요"
 
 
