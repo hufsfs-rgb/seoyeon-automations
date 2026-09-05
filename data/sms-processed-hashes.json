@@ -259,5 +259,12 @@
     "merchant": "(주)오이삼계탕",
     "amount": 38000.0,
     "date": "2026-09-04"
+  },
+  "ce8e57846699df68fcdfe328a6de0ea717702d9c55fde09a0df80b4c60c7a56e": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "카카오",
+    "amount": 110.0,
+    "date": "2026-09-05"
   }
 }
