@@ -1,0 +1,17 @@
+# seoyeon monthly fixed expense auto-reflect (계좌이체 items only, on their 결제일)
+name: Monthly Fixed Expense Reflect
+
+on:
+  schedule:
+    - cron: "20 23 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  reflect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reflect due 계좌이체 fixed expenses into 가계부
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: python3 scripts/monthly_fixed_expense_reflect.py
