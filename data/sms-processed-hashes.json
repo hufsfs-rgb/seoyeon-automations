@@ -301,5 +301,12 @@
     "merchant": "채선당샤브보트",
     "amount": 47700.0,
     "date": "2026-09-06"
+  },
+  "3c74a2d247993126a974afa8b6a2c2a4f437ebe80604d186de4efc60844df330": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "공차스퀘어원점",
+    "amount": 4680.0,
+    "date": "2026-09-06"
   }
 }
