@@ -322,5 +322,12 @@
     "cancelled_merchant": "쿠팡",
     "amount": -10890.0,
     "date": "2026-09-06"
+  },
+  "dda39c7909bf404eafbe21651e1c42d8399e8c33fed46a4a592b8ec184e1e31d": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 10000.0,
+    "date": "2026-09-06"
   }
 }
