@@ -308,5 +308,12 @@
     "merchant": "공차스퀘어원점",
     "amount": 4680.0,
     "date": "2026-09-06"
+  },
+  "5143adb94ec6c12f8c82331d8c2233ceafd27307b04765447bad0b71d9ee4f05": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 10890.0,
+    "date": "2026-09-06"
   }
 }
