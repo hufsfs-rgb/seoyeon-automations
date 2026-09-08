@@ -357,5 +357,9 @@
     "merchant": "주식회사카카오",
     "amount": 2000.0,
     "date": "2026-09-08"
+  },
+  "abab7faa6e0797378ecfcedd6d4b486db23538702c721a78758649a6341d825c": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
