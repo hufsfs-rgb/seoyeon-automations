@@ -1,11 +1,5 @@
 [
   {
-    "date": "2026-08-26",
-    "temp_c": 25.0,
-    "humidity": 84,
-    "wind_kmph": 4.0
-  },
-  {
     "date": "2026-08-27",
     "temp_c": 28.0,
     "humidity": 66,
@@ -82,5 +76,11 @@
     "temp_c": 21.0,
     "humidity": 55,
     "wind_kmph": 6.0
+  },
+  {
+    "date": "2026-09-09",
+    "temp_c": 20.0,
+    "humidity": 55,
+    "wind_kmph": 22.0
   }
 ]
