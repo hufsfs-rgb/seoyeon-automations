@@ -372,5 +372,12 @@
     "merchant": "지에스칼텍스(주)",
     "amount": 59855.0,
     "date": "2026-09-09"
+  },
+  "5cef6823cc918e351d2fc2fe20f21787b7ce1ed748d708f67fb56aa2dd5582b1": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "스타벅스코리아",
+    "amount": 2400.0,
+    "date": "2026-09-09"
   }
 }
