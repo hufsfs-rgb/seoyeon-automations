@@ -405,5 +405,12 @@
   "99e13b94c32c79e0649b185393373b7255e319c05e4629889ca8aaf007a6d348": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "3bba14e53a587742c594cdf35c6d365391dbffcadcbfb69f66454af85c186f71": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "(주)호텔롯데롯데",
+    "amount": 35500.0,
+    "date": "2026-09-10"
   }
 }
