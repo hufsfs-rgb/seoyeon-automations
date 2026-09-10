@@ -390,5 +390,9 @@
     "merchant": "포레스트아웃팅스",
     "amount": 17600.0,
     "date": "2026-09-10"
+  },
+  "0815bdfb14022a8fdf45c053a5762ef7c58dc2093e233daa6e61a246a07ae7a7": {
+    "parsed": false,
+    "recorded_at": "2026-09-10"
   }
 }
