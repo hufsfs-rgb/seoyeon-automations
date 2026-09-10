@@ -383,5 +383,12 @@
   "d31d394b17ac1f1315530986e7fbe2b1fd09a2af34a3750037d22fe2aa34b9f8": {
     "parsed": false,
     "recorded_at": "2026-09-10"
+  },
+  "3f574cea8bcb0cc5bdcc5a69227be8590f10fa130dea999e17ff9053327f045e": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "포레스트아웃팅스",
+    "amount": 17600.0,
+    "date": "2026-09-10"
   }
 }
