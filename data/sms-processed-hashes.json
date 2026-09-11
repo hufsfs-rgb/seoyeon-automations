@@ -419,5 +419,12 @@
     "merchant": "(사)두란노서원",
     "amount": 7500.0,
     "date": "2026-09-11"
+  },
+  "d1ca0a0190a74545bc524e8886f70353fb9d8ecb60d3f7462b5ac6040de8bc50": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 27360.0,
+    "date": "2026-09-11"
   }
 }
