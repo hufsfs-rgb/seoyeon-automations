@@ -412,5 +412,12 @@
     "merchant": "(주)호텔롯데롯데",
     "amount": 35500.0,
     "date": "2026-09-10"
+  },
+  "08a4b1fd9f93a879051239ba2b11c80f8b87bf0b0d4294262dc171418afff603": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "(사)두란노서원",
+    "amount": 7500.0,
+    "date": "2026-09-11"
   }
 }
