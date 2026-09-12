@@ -447,5 +447,12 @@
     "merchant": "주식회사아이스팩",
     "amount": 4200.0,
     "date": "2026-09-12"
+  },
+  "9317d8b60c7e54b5f3960a9d80163dfad5f804069e167ca6242e0de0305b13b5": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 7890.0,
+    "date": "2026-09-12"
   }
 }
