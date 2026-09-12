@@ -440,5 +440,12 @@
     "merchant": "(주)호텔롯데롯데",
     "amount": 5000.0,
     "date": "2026-09-12"
+  },
+  "cd9a5117776da7e4791757cf77473b9dbe37ae87169fcf798b037bd19a1e3aa8": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "주식회사아이스팩",
+    "amount": 4200.0,
+    "date": "2026-09-12"
   }
 }
