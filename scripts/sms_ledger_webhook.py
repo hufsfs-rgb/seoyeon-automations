@@ -102,6 +102,10 @@ MERCHANT_CATEGORY_OVERRIDES = {
     "에프알엘코리아": ("생활", "유니클로/GU(패스트리테일링코리아)"),
     "ANTHROPIC": ("고정지출", "Claude 구독료"),
     "케이엠파크": ("교통", "주차장 사용요금(추정)"),
+    "지에스칼텍스": ("교통", "GS칼텍스 주유소, 주유비"),
+    "SK에너지": ("교통", "SK주유소, 주유비"),
+    "에쓰-오일": ("교통", "S-OIL 주유소, 주유비"),
+    "현대오일뱅크": ("교통", "현대오일뱅크 주유소, 주유비"),
 }
 
 # Legally required "(광고)" tag on Korean marketing SMS - filter these out before
