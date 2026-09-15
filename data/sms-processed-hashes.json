@@ -465,5 +465,12 @@
   "bfa7a0d33f633215c5835771032b6630aa7df5d1c04df693494055bfef258fd9": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "e9cb4959fc49cbd8fe4dddad71d4c1523d0d37539219d3aba47d4a207221b210": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "씨유(CU)송도파크",
+    "amount": 1100.0,
+    "date": "2026-09-15"
   }
 }
