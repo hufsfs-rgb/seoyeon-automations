@@ -472,5 +472,12 @@
     "merchant": "씨유(CU)송도파크",
     "amount": 1100.0,
     "date": "2026-09-15"
+  },
+  "f6a86a400d6bc78c5748d86e16350e0e4899bf15d39c50a18c877dcae121f208": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 10880.0,
+    "date": "2026-09-15"
   }
 }
