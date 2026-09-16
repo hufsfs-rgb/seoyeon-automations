@@ -519,5 +519,12 @@
     "merchant": "지에스칼텍스(주)",
     "amount": 60000.0,
     "date": "2026-09-16"
+  },
+  "eecc3972f619f04fafef63e16349d0747d7227723bf391687050ad4b1ccaae62": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 10960.0,
+    "date": "2026-09-16"
   }
 }
