@@ -505,5 +505,12 @@
   "6aa524f6944bd161b86bcb7cbccf7a1adb267e62f3406bb102eb9d695f214e7f": {
     "parsed": false,
     "recorded_at": "2026-09-16"
+  },
+  "966f95fde6dbc90196e6498eac1bc5ca3717889a2bb3b0d635a91d479c645e03": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "히바린_IFC",
+    "amount": 6000.0,
+    "date": "2026-09-16"
   }
 }
