@@ -512,5 +512,12 @@
     "merchant": "히바린_IFC",
     "amount": 6000.0,
     "date": "2026-09-16"
+  },
+  "f2c1f051aaa9fe58a705f2edf01f8a7640eacde1027fb56f9f202a2dd065e838": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "지에스칼텍스(주)",
+    "amount": 60000.0,
+    "date": "2026-09-16"
   }
 }
