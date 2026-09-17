@@ -542,5 +542,12 @@
   "9a7aaa720436f773232fac1a1c019e49ce68edad003ed0ee934cf049c4543e0e": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "ed561947860a9a25e0c5367c01e87dfa3bf793f7f5c8d837ce4a0e54c143a7ad": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "별온누리약국",
+    "amount": 90000.0,
+    "date": "2026-09-17"
   }
 }
