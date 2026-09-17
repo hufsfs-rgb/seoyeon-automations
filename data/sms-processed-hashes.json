@@ -534,5 +534,9 @@
   "92771c35407ae00e3591f6a75dcefd41f80f62f4b32f626aaf201deddfabe219": {
     "parsed": false,
     "recorded_at": "2026-09-17"
+  },
+  "5f4b451ac89c92ce740d614ff082897f2c789136c9d2a8fa8cf581199f7c1107": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
