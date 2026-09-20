@@ -584,5 +584,12 @@
     "merchant": "프린트카페인천대",
     "amount": 280.0,
     "date": "2026-09-20"
+  },
+  "e93a928d73d7b1b3d1e67318671a0bbbb4b387a65f38d386d9a72a71d1c2bf37": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 22690.0,
+    "date": "2026-09-20"
   }
 }
