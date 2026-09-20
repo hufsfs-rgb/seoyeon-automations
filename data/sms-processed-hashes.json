@@ -570,5 +570,12 @@
     "merchant": "현대옥(송도",
     "amount": 30000.0,
     "date": "2026-09-19"
+  },
+  "89297607157332fd55c8dc2048a5c4b7dd0ef5be475df0228c12a78dd3e73cd7": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "퍼안",
+    "amount": 36900.0,
+    "date": "2026-09-20"
   }
 }
