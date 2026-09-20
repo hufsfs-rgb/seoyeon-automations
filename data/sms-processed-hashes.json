@@ -577,5 +577,12 @@
     "merchant": "퍼안",
     "amount": 36900.0,
     "date": "2026-09-20"
+  },
+  "ca68cb0727099b28818dd1d2c27f387843350d55fed48cecff3d1b26cb133087": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "프린트카페인천대",
+    "amount": 280.0,
+    "date": "2026-09-20"
   }
 }
