@@ -591,5 +591,9 @@
     "merchant": "이마트에브리데이",
     "amount": 22690.0,
     "date": "2026-09-20"
+  },
+  "4ad75dc7a61df83227f89306cdf64b25069c5cd874065b95db59bb0fd6e249ad": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
