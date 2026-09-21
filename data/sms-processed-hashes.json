@@ -595,5 +595,13 @@
   "4ad75dc7a61df83227f89306cdf64b25069c5cd874065b95db59bb0fd6e249ad": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "a3dd7f451f5ec3ca96bc5832101a50b6692ebc4bcf6b25f565d7df185a43d2bb": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "IHERB IHERB.COM",
+    "fx": "USD34.68",
+    "krw_amount": null,
+    "date": "2026-09-21"
   }
 }
