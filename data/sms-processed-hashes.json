@@ -618,5 +618,12 @@
     "fx": "USD22.0",
     "krw_amount": null,
     "date": "2026-09-22"
+  },
+  "e2b4e67393896f089c7269d56c39a72297de869bcc8204fb9a9d424856bbc74a": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "플레이팅인천공항",
+    "amount": 35000.0,
+    "date": "2026-09-23"
   }
 }
