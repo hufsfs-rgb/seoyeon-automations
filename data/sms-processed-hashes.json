@@ -603,5 +603,12 @@
     "fx": "USD34.68",
     "krw_amount": null,
     "date": "2026-09-21"
+  },
+  "8b53cee6af91005785c6baff0b7ec6e89b37ea418ced04b577ce2a7d1f44a4bf": {
+    "parsed": true,
+    "card": "삼성카드",
+    "merchant": "SK통신료(837477)",
+    "amount": 23250.0,
+    "date": "2026-09-21"
   }
 }
