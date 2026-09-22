@@ -610,5 +610,13 @@
     "merchant": "SK통신료(837477)",
     "amount": 23250.0,
     "date": "2026-09-21"
+  },
+  "aa3312555cc19ed88a205a31f348bafe630ce222742be65dea9e398be130392b": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "ANTHROPIC* CLAUDE SU",
+    "fx": "USD22.0",
+    "krw_amount": null,
+    "date": "2026-09-22"
   }
 }
