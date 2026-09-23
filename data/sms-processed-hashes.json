@@ -632,5 +632,12 @@
     "merchant": "성약국",
     "amount": 10000.0,
     "date": "2026-09-23"
+  },
+  "d067be41441895173efd8944fc3586aea1553f555e3e93a97478cfc6e74aa2ec": {
+    "parsed": true,
+    "card": "삼성카드",
+    "merchant": "아파트관리비",
+    "amount": 438510.0,
+    "date": "2026-09-22"
   }
 }
