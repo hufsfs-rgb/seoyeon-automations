@@ -647,5 +647,13 @@
     "fx": "JPY4700.0",
     "krw_amount": null,
     "date": "2026-09-23"
+  },
+  "078c0c0a4628c49217796ac79ea5ae4fbd13b8326cfc82ffd8d4266089b20378": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "WATTS SHIODOMESHI",
+    "fx": "JPY880.0",
+    "krw_amount": null,
+    "date": "2026-09-23"
   }
 }
