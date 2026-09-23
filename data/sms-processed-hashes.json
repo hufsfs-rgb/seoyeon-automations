@@ -655,5 +655,13 @@
     "fx": "JPY880.0",
     "krw_amount": null,
     "date": "2026-09-23"
+  },
+  "76ac7d767da1e99f0439239e7dfba74aa34812f120594d8cc9726198307cdd96": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "FAMILYMART",
+    "fx": "JPY697.0",
+    "krw_amount": null,
+    "date": "2026-09-23"
   }
 }
