@@ -639,5 +639,13 @@
     "merchant": "아파트관리비",
     "amount": 438510.0,
     "date": "2026-09-22"
+  },
+  "b9a671fff4ff6b4618aea07c4988e120bc0b1c580963d9713531598bf9ae946a": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "SACHIFUKUYACAFE SHIO",
+    "fx": "JPY4700.0",
+    "krw_amount": null,
+    "date": "2026-09-23"
   }
 }
