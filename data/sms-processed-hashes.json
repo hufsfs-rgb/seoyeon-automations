@@ -697,5 +697,12 @@
     "fx": "JPY1145.0",
     "krw_amount": null,
     "date": "2026-09-24"
+  },
+  "b9e54bb3490731f59b153448c1ff5ac6c85dffe9e60599e3ce9f6c0a78b7bebd": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "아워홈T1한식소담",
+    "amount": 34500.0,
+    "date": "2026-09-24"
   }
 }
