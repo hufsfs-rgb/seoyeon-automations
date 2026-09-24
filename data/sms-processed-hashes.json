@@ -685,5 +685,9 @@
     "merchant": "에스케이브로드밴드주식",
     "amount": 42900.0,
     "date": "2026-09-22"
+  },
+  "3e3ea33d1f64a02f574b9fd1c679c48d57f15b1297b5c914fd7a738949559267": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
