@@ -711,5 +711,12 @@
     "merchant": "아워홈T1한식소담",
     "amount": 1000.0,
     "date": "2026-09-24"
+  },
+  "549806abfb742e442c3a6ddccb9604447ce6bc311addb6b2a8bf47c898841154": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "인천국제공항공사",
+    "amount": 24000.0,
+    "date": "2026-09-24"
   }
 }
