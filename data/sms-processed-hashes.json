@@ -689,5 +689,13 @@
   "3e3ea33d1f64a02f574b9fd1c679c48d57f15b1297b5c914fd7a738949559267": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "a4c4e5a9b8d7bc72429e3605786b33b5c6fb568bef4ff20be8a402a1c0ee5a91": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "STARBUCKS COFFEE JAP",
+    "fx": "JPY1145.0",
+    "krw_amount": null,
+    "date": "2026-09-24"
   }
 }
