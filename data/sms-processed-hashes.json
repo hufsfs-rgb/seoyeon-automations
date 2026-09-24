@@ -718,5 +718,12 @@
     "merchant": "인천국제공항공사",
     "amount": 24000.0,
     "date": "2026-09-24"
+  },
+  "84d2fe0a65fa579bc053d7ebf9f56d0aa48de7440582ad10961079b32af53bc6": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "지에스칼텍스(주)",
+    "amount": 39806.0,
+    "date": "2026-09-24"
   }
 }
