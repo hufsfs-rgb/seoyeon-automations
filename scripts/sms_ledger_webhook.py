@@ -2,6 +2,7 @@ import hashlib
 import json
 import os
 import re
+import time
 import urllib.request
 from datetime import datetime
 from zoneinfo import ZoneInfo
@@ -245,13 +246,18 @@ def fetch_krw_rate(date_iso, currency):
     Frankfurter), or None if the lookup fails. Falls back to the nearest earlier
     published rate automatically for weekends/holidays."""
     url = f"https://api.frankfurter.dev/v1/{date_iso}?base={currency}&symbols=KRW"
-    try:
-        with urllib.request.urlopen(url, timeout=10) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
-        return data["rates"]["KRW"]
-    except Exception as e:
-        print(f"Exchange rate lookup failed for {currency} on {date_iso}: {e}")
-        return None
+    # Frankfurter's CDN rejects the default "Python-urllib" User-Agent with 403,
+    # which is why every overseas SMS used to fall back to "[해외/환산필요]".
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (seoyeon-automations ledger)"})
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            return data["rates"]["KRW"]
+        except Exception as e:
+            print(f"Exchange rate lookup failed for {currency} on {date_iso} (attempt {attempt + 1}): {e}")
+            time.sleep(2)
+    return None
 
 
 def load_state():
