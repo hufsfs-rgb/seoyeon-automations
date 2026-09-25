@@ -1,0 +1,23 @@
+# Manual dry run of scripts/spending_alerts.py against the real ledger
+# (prints alerts, never pushes to ntfy or saves state).
+name: Spending Alerts Dry Run
+
+on:
+  workflow_dispatch:
+    inputs:
+      samples:
+        description: "merchant|amount|category|YYYY-MM-DD, separated by ;"
+        required: true
+
+jobs:
+  dryrun:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax check
+        run: python3 -m py_compile scripts/sms_ledger_webhook.py scripts/spending_alerts.py
+      - name: Dry run
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          SAMPLES: ${{ github.event.inputs.samples }}
+        run: python3 scripts/spending_alerts.py

@@ -30,6 +30,7 @@ jobs:
             exit 0
           fi
           git add data/sms-processed-hashes.json
+          if [ -f data/spending-alert-state.json ]; then git add data/spending-alert-state.json; fi
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else

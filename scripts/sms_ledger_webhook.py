@@ -7,6 +7,8 @@ import urllib.request
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+from spending_alerts import run_spending_alerts
+
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
 NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "")
 SMS_TEXT = os.environ.get("SMS_TEXT", "")
@@ -329,6 +331,7 @@ def main():
             "연월": ym_property(date_iso),
         })
         check_fixed_expense(merchant, amount)
+        run_spending_alerts(HEADERS, push_ntfy, merchant, amount, category, date_iso)
         state[text_hash] = {"parsed": True, "card": m.group("issuer"), "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
         print(f"Recorded ({issuer_label}): {merchant} {amount:,.0f}원 on {date_iso}")
@@ -409,6 +412,7 @@ def main():
             "메모": {"rich_text": [{"text": {"content": memo}}]},
             "연월": ym_property(date_iso),
         })
+        run_spending_alerts(HEADERS, push_ntfy, merchant, amount, category, date_iso)
         state[text_hash] = {"parsed": True, "card": "롯데", "merchant": merchant, "amount": amount, "date": date_iso}
         save_state(state)
         print(f"Recorded (롯데카드): {merchant} {amount:,.0f}원 on {date_iso}")
@@ -491,6 +495,7 @@ def main():
         create_page(properties)
         if rate is not None:
             check_fixed_expense(merchant, krw_amount)
+            run_spending_alerts(HEADERS, push_ntfy, title, krw_amount, category, date_iso)
         state[text_hash] = {
             "parsed": True,
             "card": "hana_overseas",
