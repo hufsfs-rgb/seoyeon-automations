@@ -130,6 +130,9 @@ def check_category_pace(headers, category, date_iso, state):
     totals = {}
     for r in rows:
         ym = (r["properties"].get("연월", {}).get("select") or {}).get("name")
+        row_date = ((r["properties"].get("날짜", {}).get("date") or {}).get("start") or "")[:10]
+        if ym == this_ym and row_date > date_iso:
+            continue
         totals[ym] = totals.get(ym, 0) + _amount(r)
     avg = sum(totals.get(ym, 0) for ym in past) / len(past)
     if avg <= 0:
