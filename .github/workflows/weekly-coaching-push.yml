@@ -1,0 +1,27 @@
+# seoyeon weekly spending coaching push notification
+# The report itself is written to Notion by the cloud routine "서연 주간 소비 코칭"
+# (Sun 20:00 KST); cloud routines can't reach ntfy.sh, so the push lives here.
+name: Weekly Coaching Push
+
+on:
+  schedule:
+    - cron: "40 11 * * 0"
+  workflow_dispatch: {}
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send ntfy push notification
+        run: |
+          cat > payload.json <<'EOF'
+          {
+            "topic": "${{ secrets.NTFY_TOPIC }}",
+            "title": "서연의 주간 소비 코칭 💰",
+            "message": "이번 주 소비 코칭 리포트가 올라왔어요! 노션 기획재정부 > 주간 소비 코칭에서 확인해주세요 :)",
+            "click": "https://app.notion.com/p/3e61811a40e9817db845df8067055f7b"
+          }
+          EOF
+          curl -sS -X POST https://ntfy.sh \
+            -H "Content-Type: application/json; charset=utf-8" \
+            --data-binary @payload.json
