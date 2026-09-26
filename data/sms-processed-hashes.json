@@ -739,5 +739,12 @@
     "merchant": "코레일유통(주)",
     "amount": 1100.0,
     "date": "2026-09-26"
+  },
+  "c471935d9bc4f650b9e60d9d3b3d08358bfafd4a57b5dfdcaaf8895fdb82791f": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 35490.0,
+    "date": "2026-09-26"
   }
 }
