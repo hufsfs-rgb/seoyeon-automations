@@ -746,5 +746,12 @@
     "merchant": "쿠팡",
     "amount": 35490.0,
     "date": "2026-09-26"
+  },
+  "1c26ef4dd4a17f28336922190b14e9ca99dd824115832ac9c2af675bbee8eb9d": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "(주)우아한형제들",
+    "amount": 21000.0,
+    "date": "2026-09-27"
   }
 }
