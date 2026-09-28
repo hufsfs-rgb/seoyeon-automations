@@ -1,0 +1,29 @@
+# seoyeon weekly health check-in push notification
+# The report itself is written to Notion by the cloud routine "서연 주간 건강 체크인"
+# (Sun 21:00 KST); cloud routines can't reach ntfy.sh, so the push lives here.
+# Never put health numbers in this message - ntfy topics are readable by anyone
+# who knows the topic name.
+name: Weekly Health Push
+
+on:
+  schedule:
+    - cron: "40 12 * * 0"
+  workflow_dispatch: {}
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send ntfy push notification
+        run: |
+          cat > payload.json <<'EOF'
+          {
+            "topic": "${{ secrets.NTFY_TOPIC }}",
+            "title": "서연의 주간 건강 체크인 💚",
+            "message": "이번 주 건강 체크인이 올라왔어요! 노션 레저건강부 > 주간 건강 체크인에서 확인해주세요 :)",
+            "click": "https://app.notion.com/p/3e91811a40e981e6a121c74db77f5b88"
+          }
+          EOF
+          curl -sS -X POST https://ntfy.sh \
+            -H "Content-Type: application/json; charset=utf-8" \
+            --data-binary @payload.json
