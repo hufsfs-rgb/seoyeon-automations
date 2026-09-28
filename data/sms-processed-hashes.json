@@ -753,5 +753,12 @@
     "merchant": "(주)우아한형제들",
     "amount": 21000.0,
     "date": "2026-09-27"
+  },
+  "089e17e03239da32832a04e46e039e10cb3ca8250a8b60441bac84acbb7e983b": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이복집",
+    "amount": 68000.0,
+    "date": "2026-09-28"
   }
 }
