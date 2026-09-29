@@ -760,5 +760,9 @@
     "merchant": "이복집",
     "amount": 68000.0,
     "date": "2026-09-28"
+  },
+  "4943e58caf113f3d50486c31ddd4eea08b2e135c49d1f23946e7ca171c855e04": {
+    "parsed": false,
+    "recorded_at": "2026-09-29"
   }
 }
