@@ -764,5 +764,12 @@
   "4943e58caf113f3d50486c31ddd4eea08b2e135c49d1f23946e7ca171c855e04": {
     "parsed": false,
     "recorded_at": "2026-09-29"
+  },
+  "906a36aad9703de3712e106f0164477acc125d5294065f556c194d57f02da663": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "아마노코리아(주)",
+    "amount": 12000.0,
+    "date": "2026-10-01"
   }
 }
