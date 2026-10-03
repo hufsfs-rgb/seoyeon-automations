@@ -785,5 +785,12 @@
     "merchant": "송도오라화덕피자",
     "amount": 51500.0,
     "date": "2026-10-03"
+  },
+  "eb1c34bee2d60fbd4cb6c7c6975f6376b9dab993e5814250b69844cda6c4339c": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 14590.0,
+    "date": "2026-10-03"
   }
 }
