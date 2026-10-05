@@ -806,5 +806,12 @@
     "merchant": "이마트에브리데이",
     "amount": 26880.0,
     "date": "2026-10-04"
+  },
+  "3344dcef800e9892136de1fcde7b91b79fd67ecc5c8808fc326f79d2835fc533": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "롯데쇼핑(주)롯데",
+    "amount": 15470.0,
+    "date": "2026-10-05"
   }
 }
