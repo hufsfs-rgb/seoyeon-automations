@@ -827,5 +827,12 @@
     "merchant": "(주)에이션패션인",
     "amount": 29900.0,
     "date": "2026-10-05"
+  },
+  "13c721b719d112b9c7b5be6b6439ab5ea2f16e7a8fcecbef0adc617a6c27348d": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "신성통상(주)TOPTEN",
+    "amount": 69800.0,
+    "date": "2026-10-05"
   }
 }
