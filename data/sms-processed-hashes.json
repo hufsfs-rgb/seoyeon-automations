@@ -820,5 +820,12 @@
     "merchant": "롯데쇼핑(주)롯데",
     "amount": 6800.0,
     "date": "2026-10-05"
+  },
+  "bcfb7aa05766e96ea9d3cd0d10622c8f9fcf5bb56a321ae4d37607bff1ec0826": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "(주)에이션패션인",
+    "amount": 29900.0,
+    "date": "2026-10-05"
   }
 }
