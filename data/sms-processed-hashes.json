@@ -842,5 +842,12 @@
   "a6ed32521363f2175b8415e58d22eb6044b443bfdfc0a39ef5e0f70a79b3d85b": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "26c55d48a6521b8774924b1cd2fdd889a0fb20b08d2332388064cd895660ed94": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "지에스칼텍스(주)",
+    "amount": 40000.0,
+    "date": "2026-10-06"
   }
 }
