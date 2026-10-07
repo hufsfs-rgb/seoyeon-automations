@@ -863,5 +863,12 @@
     "merchant": "주식회사더블유",
     "amount": 1500.0,
     "date": "2026-10-07"
+  },
+  "e0131f12bb07fe5828f2224bdfb10b89c01655fc3c219d1705ceb9ac3894ba3a": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "주식회사더블유",
+    "amount": 1500.0,
+    "date": "2026-10-07"
   }
 }
