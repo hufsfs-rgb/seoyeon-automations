@@ -870,5 +870,9 @@
     "merchant": "주식회사더블유",
     "amount": 1500.0,
     "date": "2026-10-07"
+  },
+  "b76decdba4cfff89515228849706d4e1d4bd924b0378c5cc320575a87ab7b929": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
