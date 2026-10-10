@@ -2,6 +2,8 @@ import json
 import os
 import urllib.request
 
+from alert_log import log_alert
+
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
 NTFY_TOPIC = os.environ.get("NTFY_TOPIC")
 API_BASE = "https://api.notion.com/v1"
@@ -81,6 +83,7 @@ def notify_failure(message):
             resp.read()
     except Exception as e:
         print(f"Failure alert push also failed: {e}")
+    log_alert("반도체", payload["title"], message)
 
 
 def call_notion(method, path, body=None):

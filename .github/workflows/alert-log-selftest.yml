@@ -1,0 +1,15 @@
+# One-off check that the 서연 백업봇 integration can write to the 알림 로그 DB (no push sent)
+name: Alert Log Selftest
+on:
+  workflow_dispatch: {}
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile touched scripts
+        run: python3 -m py_compile scripts/*.py
+      - name: Write a test row
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: python3 scripts/alert_log.py "기타" "알림 로그 연결 테스트" "설치 확인용 테스트 행 (삭제해도 됨)" | tee out.txt; grep -q "logged" out.txt

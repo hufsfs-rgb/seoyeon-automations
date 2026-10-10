@@ -3,7 +3,8 @@ name: Weekly Retro Push
 
 on:
   schedule:
-    - cron: "5 13 * * 0"
+    # Mon 07:50 KST - the retro routine now runs Mon 00:10 KST so Sunday's diary is included
+    - cron: "50 22 * * 0"
   workflow_dispatch: {}
 
 jobs:
@@ -24,3 +25,8 @@ jobs:
           curl -sS -X POST https://ntfy.sh \
             -H "Content-Type: application/json; charset=utf-8" \
             --data-binary @payload.json
+      - uses: actions/checkout@v4
+      - name: Log alert to Notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: python3 scripts/alert_log.py "주간리포트" "서연의 주간 회고 🗓️" "지난주 주간 회고 알림 발송"

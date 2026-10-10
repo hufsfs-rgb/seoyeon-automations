@@ -27,3 +27,8 @@ jobs:
           curl -sS -X POST https://ntfy.sh \
             -H "Content-Type: application/json; charset=utf-8" \
             --data-binary @payload.json
+      - uses: actions/checkout@v4
+      - name: Log alert to Notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: python3 scripts/alert_log.py "주간리포트" "서연의 주간 건강 체크인 💚" "이번 주 건강 체크인 리포트 알림 발송"

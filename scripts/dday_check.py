@@ -4,6 +4,8 @@ from datetime import date, datetime
 from zoneinfo import ZoneInfo
 import urllib.request
 
+from alert_log import log_alert
+
 THRESHOLDS = {7, 3, 1, 0}
 
 def load_events():
@@ -49,6 +51,7 @@ def main():
     )
     with urllib.request.urlopen(req) as resp:
         print(resp.read().decode("utf-8"))
+    log_alert("D-day", title, message)
 
 if __name__ == "__main__":
     main()

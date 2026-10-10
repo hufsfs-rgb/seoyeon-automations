@@ -7,6 +7,7 @@ import urllib.request
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+from alert_log import log_alert
 from spending_alerts import run_spending_alerts
 
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
@@ -202,6 +203,7 @@ def push_ntfy(title, message):
     )
     with urllib.request.urlopen(req) as resp:
         resp.read()
+    log_alert("고정지출" if title.startswith("고정지출") else "과소비알림", title, message)
 
 
 def check_fixed_expense(merchant, krw_amount):

@@ -2,6 +2,8 @@ import json
 import os
 import urllib.request
 
+from alert_log import log_alert
+
 NTFY_URL = "https://ntfy.sh"
 
 
@@ -36,6 +38,7 @@ def main():
     )
     with urllib.request.urlopen(req) as resp:
         print(resp.read().decode("utf-8"))
+    log_alert("모닝브리핑", payload["title"], message)
 
 
 if __name__ == "__main__":

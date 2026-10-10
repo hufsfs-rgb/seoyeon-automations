@@ -4,6 +4,8 @@ import urllib.request
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
+from alert_log import log_alert
+
 TMAP_APP_KEY = os.environ["TMAP_APP_KEY"]
 NTFY_TOPIC = os.environ["NTFY_TOPIC"]
 
@@ -56,6 +58,7 @@ def push_ntfy(title, message):
     )
     with urllib.request.urlopen(req) as resp:
         print(resp.read().decode("utf-8"))
+    log_alert("교통", title, message)
 
 
 def main():

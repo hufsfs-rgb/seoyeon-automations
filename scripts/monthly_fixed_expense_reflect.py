@@ -5,6 +5,8 @@ import urllib.request
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
+from alert_log import log_alert
+
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
 NTFY_TOPIC = os.environ.get("NTFY_TOPIC", "")
 API_BASE = "https://api.notion.com/v1"
@@ -43,6 +45,7 @@ def push_ntfy(title, message):
     )
     with urllib.request.urlopen(req) as resp:
         resp.read()
+    log_alert("고정지출", title, message)
 
 
 def rich_text_plain(rt_list):

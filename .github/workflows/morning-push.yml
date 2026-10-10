@@ -23,6 +23,7 @@ jobs:
       - name: Send ntfy push notification
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
         run: python3 scripts/send_morning_push.py
       - name: Append weather/stock to Notion briefing (best-effort)
         continue-on-error: true

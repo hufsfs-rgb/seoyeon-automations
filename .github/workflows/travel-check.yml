@@ -16,4 +16,5 @@ jobs:
         env:
           TMAP_APP_KEY: ${{ secrets.TMAP_APP_KEY }}
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
         run: python3 scripts/travel_check.py

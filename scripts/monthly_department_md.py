@@ -3,6 +3,8 @@ import os
 import urllib.request
 from datetime import datetime, timezone, timedelta
 
+from alert_log import log_alert
+
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
 NTFY_TOPIC = os.environ["NTFY_TOPIC"]
 API_BASE = "https://api.notion.com/v1"
@@ -103,6 +105,7 @@ def send_ntfy(title, message, url):
         method="POST",
     )
     urllib.request.urlopen(req)
+    log_alert("부서지침", title, message)
 
 
 def main():
