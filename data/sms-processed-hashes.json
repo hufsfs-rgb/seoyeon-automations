@@ -934,5 +934,12 @@
     "merchant": "주식회사아성다이",
     "amount": 20000.0,
     "date": "2026-10-11"
+  },
+  "3be7f2df7ba1dcc8d0ce1a29a58fa6dc84f4417a4097604313dad90e2a3d24b9": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "세븐일레븐송도마",
+    "amount": 1200.0,
+    "date": "2026-10-11"
   }
 }
