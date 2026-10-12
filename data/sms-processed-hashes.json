@@ -941,5 +941,12 @@
     "merchant": "세븐일레븐송도마",
     "amount": 1200.0,
     "date": "2026-10-11"
+  },
+  "61c5be2d6fe555d2159bf1b6c67ed680e18564aa561eddbb9fe341d0d3e0d21c": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "지에스칼텍스(주)",
+    "amount": 39871.0,
+    "date": "2026-10-12"
   }
 }
