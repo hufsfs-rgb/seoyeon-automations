@@ -955,5 +955,9 @@
     "merchant": "쿠팡(와우멤버십)",
     "amount": 7890.0,
     "date": "2026-10-13"
+  },
+  "416af127236cc80c3b3ee94525ed65ea3ec9c5933906d88bf3aff8524d88b9e7": {
+    "parsed": false,
+    "recorded_at": "2026-10-13"
   }
 }
