@@ -973,5 +973,12 @@
     "merchant": "이마트에브리데이",
     "amount": 13460.0,
     "date": "2026-10-13"
+  },
+  "5b3b701a777f8a58000cd975b9cf7a34153be09eb44f5eb08ab792bac04d2ce1": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 4500.0,
+    "date": "2026-10-13"
   }
 }
