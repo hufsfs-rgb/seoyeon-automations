@@ -959,5 +959,12 @@
   "416af127236cc80c3b3ee94525ed65ea3ec9c5933906d88bf3aff8524d88b9e7": {
     "parsed": false,
     "recorded_at": "2026-10-13"
+  },
+  "3ffe0f75d8b3c20ce7fdc1649ed537be7b44f1c84fa87686fba71422161b8e54": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "프린트카페인천대",
+    "amount": 280.0,
+    "date": "2026-10-13"
   }
 }
