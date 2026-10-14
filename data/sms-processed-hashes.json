@@ -980,5 +980,12 @@
     "merchant": "쿠팡",
     "amount": 4500.0,
     "date": "2026-10-13"
+  },
+  "439b711f3273f66aa7c94f02ee583d861d76598a3b3921ca7e88e803e5a3d9ee": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "택이집",
+    "amount": 20000.0,
+    "date": "2026-10-14"
   }
 }
