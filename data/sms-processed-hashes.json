@@ -987,5 +987,12 @@
     "merchant": "택이집",
     "amount": 20000.0,
     "date": "2026-10-14"
+  },
+  "a951bf1eb01a4b016baa4a910fb60ac6aa63288c806bb0e22e77188eb2b4f4c7": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "포시즌아이스",
+    "amount": 2700.0,
+    "date": "2026-10-14"
   }
 }
