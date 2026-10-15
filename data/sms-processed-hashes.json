@@ -1001,5 +1001,13 @@
     "merchant": "이마트에브리데이",
     "amount": 36240.0,
     "date": "2026-10-15"
+  },
+  "dfedd073b28021d7c31e78c2abc43201037e3598709abfbdf8327600e0b72a72": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "IHERB IHERB.COM",
+    "fx": "USD64.8",
+    "krw_amount": null,
+    "date": "2026-10-15"
   }
 }
