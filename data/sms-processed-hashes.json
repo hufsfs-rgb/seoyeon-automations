@@ -994,5 +994,12 @@
     "merchant": "포시즌아이스",
     "amount": 2700.0,
     "date": "2026-10-14"
+  },
+  "2a8144595130ff5d1a61821c96ee564add2efb753a1c546e7ef3ee68f201d85b": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 36240.0,
+    "date": "2026-10-15"
   }
 }
