@@ -1028,5 +1028,9 @@
   "665775fcfae7a1c9833d207976fd98b2526570f80fe493efb6bf5eb2bf390581": {
     "parsed": false,
     "recorded_at": "2026-10-16"
+  },
+  "2007edd3571736977be9267b75920fc9d41751b97f9040b68c0efde7d0c0189b": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
