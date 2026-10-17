@@ -1057,5 +1057,12 @@
   "65a38bd70b289abdca616310f589a4b290582a87e4ed3cfd64180bd9104fbf3e": {
     "parsed": false,
     "recorded_at": "2026-10-17"
+  },
+  "a2035e029bbf4cc278fd0834f999f880aa903fb7664679854550e6e8df7bc82c": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "메가박스송도",
+    "amount": 30000.0,
+    "date": "2026-10-17"
   }
 }
