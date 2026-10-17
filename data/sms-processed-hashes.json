@@ -1032,5 +1032,12 @@
   "2007edd3571736977be9267b75920fc9d41751b97f9040b68c0efde7d0c0189b": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "4162a045d63f83e7a142aabb0d690b49eeac6c0d3856fd9479447c76de99e84b": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 119250.0,
+    "date": "2026-10-17"
   }
 }
