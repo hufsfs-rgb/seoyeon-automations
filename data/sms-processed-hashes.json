@@ -1053,5 +1053,9 @@
     "merchant": "참다온약국",
     "amount": 10800.0,
     "date": "2026-10-17"
+  },
+  "65a38bd70b289abdca616310f589a4b290582a87e4ed3cfd64180bd9104fbf3e": {
+    "parsed": false,
+    "recorded_at": "2026-10-17"
   }
 }
