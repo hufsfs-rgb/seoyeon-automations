@@ -1046,5 +1046,12 @@
     "merchant": "송도센트럴안과의",
     "amount": 14200.0,
     "date": "2026-10-17"
+  },
+  "80637f9ccd0db61118707439bfc3f5fe294e95d580a27d2cc5b090e78144b73c": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "참다온약국",
+    "amount": 10800.0,
+    "date": "2026-10-17"
   }
 }
