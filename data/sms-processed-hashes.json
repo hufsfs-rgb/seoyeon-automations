@@ -1071,5 +1071,12 @@
     "merchant": "이마트에브리데이",
     "amount": 12620.0,
     "date": "2026-10-17"
+  },
+  "13a44a04b08f97b6ca11c1cb4ccd989ba037ecea804517005e0f9b50f81b4bf6": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "(주)안스베이커리",
+    "amount": 14700.0,
+    "date": "2026-10-17"
   }
 }
