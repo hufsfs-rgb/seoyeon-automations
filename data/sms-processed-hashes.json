@@ -1064,5 +1064,12 @@
     "merchant": "메가박스송도",
     "amount": 30000.0,
     "date": "2026-10-17"
+  },
+  "2af682e8ad1d64ce40acfa61b79702d4f03dd89c6f08f65d8705da15880a7f6f": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 12620.0,
+    "date": "2026-10-17"
   }
 }
