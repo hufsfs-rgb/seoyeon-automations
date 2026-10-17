@@ -1078,5 +1078,12 @@
     "merchant": "(주)안스베이커리",
     "amount": 14700.0,
     "date": "2026-10-17"
+  },
+  "0ca697e95dc29312ad1c0c5a043da53829f1d6ec1db8046b42b84aea9a29adbe": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "무인애견용품24도",
+    "amount": 31900.0,
+    "date": "2026-10-17"
   }
 }
