@@ -1106,5 +1106,12 @@
     "merchant": "쿠팡이츠",
     "amount": 26000.0,
     "date": "2026-10-18"
+  },
+  "99f4775eb4cda57f420f46a2364c4522b1f23db49e0ac0460399a54f89358d98": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡이츠",
+    "amount": 27000.0,
+    "date": "2026-10-18"
   }
 }
