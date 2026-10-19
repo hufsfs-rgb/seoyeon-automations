@@ -1121,5 +1121,12 @@
   "c8ccdea4190e6cc522cd0d46b2b273bc5f53439a45e4c151b0cde5697d7d6eb5": {
     "parsed": false,
     "recorded_at": "2026-10-19"
+  },
+  "871fd1b04651c9bae1bb43983bfa66bd20f17ec88afa508a2bc67b10f3831e8f": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "지자체세입금(온",
+    "amount": 12870.0,
+    "date": "2026-10-19"
   }
 }
