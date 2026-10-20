@@ -41,3 +41,4 @@
 - 2026-09-01: Notion 뷰의 `GROUP BY`는 select/status 등 실제 select 계열 속성에서만 동작하고, formula(텍스트) 속성으로는 조용히 무시됨(API가 에러도 안 냄) — 월별 그룹핑/필터가 필요하면 포뮬러가 아니라 진짜 select 속성(예: "연월")을 만들고 각 행에 값을 채워야 함.
 - 2026-10-15: Google Calendar `create_event`에 `timeZone`을 비우면 서버가 UTC로 저장함(11:30 KST 일정이 20:30 KST로 들어감) — 일정 등록 시 항상 `timeZone: "Asia/Seoul"`을 명시하고, 응답의 `start.dateTime`이 KST 기준 맞는지 확인할 것.
 - 2026-10-16: 대표님 회사가 인천 송도라는 걸 `data/travel-checks.json`에 이미 기록해 두고도 확인하지 않고 "회사가 어디냐"고 되물음 — 대표님 관련 사실을 묻기 전에 이 저장소 데이터와 Notion부터 확인할 것.
+- 2026-10-20: Notion `update_content`로 탭(`<tab>`) 안의 블록을 고칠 때 `new_str`에 탭 들여쓰기(`\t\t`)를 빼먹었더니, 그 아래 영문 이력서 본문이 "incorrect indentation"으로 통째로 잘려나감(경고만 뜨고 성공 처리됨) — 탭·토글 안을 수정할 땐 old_str/new_str 모두 fetch 결과의 들여쓰기를 그대로 맞추고, `warnings`가 오면 즉시 다시 fetch해서 손실 여부를 확인·복구할 것.
