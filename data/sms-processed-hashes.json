@@ -1161,5 +1161,12 @@
     "fx": "USD22.0",
     "krw_amount": 29163,
     "date": "2026-10-22"
+  },
+  "19ff46491e4243cebac8cf0053cf61916b03cb3b5e9d966aaa88112e87ad7d1f": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "참다온약국",
+    "amount": 10000.0,
+    "date": "2026-10-22"
   }
 }
