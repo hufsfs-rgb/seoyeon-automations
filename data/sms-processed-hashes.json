@@ -1153,5 +1153,13 @@
     "merchant": "쿠팡",
     "amount": 8900.0,
     "date": "2026-10-21"
+  },
+  "36b8de0904e9e692d08eec509eeaf75745a7897680d9c212b6f934ec7a857490": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "ANTHROPIC* CLAUDE SU",
+    "fx": "USD22.0",
+    "krw_amount": 29163,
+    "date": "2026-10-22"
   }
 }
