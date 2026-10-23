@@ -1190,5 +1190,12 @@
   "37623f9a712d7e5fe7cca59c722677285cef7f70defafb2487b178396829044f": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "c88a72e33eec1e14f7d09dd60bd55fd400469403ef18d51ea5fe04300309aafa": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡이츠",
+    "amount": 31800.0,
+    "date": "2026-10-23"
   }
 }
