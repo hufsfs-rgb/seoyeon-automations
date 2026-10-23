@@ -1186,5 +1186,9 @@
     "merchant": "쿠팡이츠",
     "amount": 15900.0,
     "date": "2026-10-23"
+  },
+  "37623f9a712d7e5fe7cca59c722677285cef7f70defafb2487b178396829044f": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
