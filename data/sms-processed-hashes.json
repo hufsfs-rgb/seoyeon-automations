@@ -1168,5 +1168,12 @@
     "merchant": "참다온약국",
     "amount": 10000.0,
     "date": "2026-10-22"
+  },
+  "d2bdb3bb746904f872ef15202c1d7ca4d39aefb7d7a65e17a949feb58ca0f041": {
+    "parsed": true,
+    "card": "삼성카드",
+    "merchant": "에스케이브로드밴드주식",
+    "amount": 42900.0,
+    "date": "2026-10-22"
   }
 }
