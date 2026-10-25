@@ -1225,5 +1225,12 @@
     "merchant": "주식회사더파킹맥",
     "amount": 3200.0,
     "date": "2026-10-25"
+  },
+  "531d0aadbe59a6f58a12751e0afcb0d38927ff0327b582c2ff832d68c05ebaa8": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "세븐일레븐송도마",
+    "amount": 3200.0,
+    "date": "2026-10-25"
   }
 }
