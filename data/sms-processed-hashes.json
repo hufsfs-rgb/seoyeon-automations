@@ -1246,5 +1246,12 @@
     "merchant": "(주)아트박스스퀘",
     "amount": 2000.0,
     "date": "2026-10-26"
+  },
+  "4ce0811f1b8b6b6a21e604720912dc9190fc464a4b1880ce86c38cd48ed92a33": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "주식회사썬토이",
+    "amount": 6000.0,
+    "date": "2026-10-26"
   }
 }
