@@ -1239,5 +1239,12 @@
     "merchant": "채선당샤브보트",
     "amount": 45700.0,
     "date": "2026-10-26"
+  },
+  "8053d2cc0e0b6b0797568be2b17f207d5d21c0899d08c4b8ee3ad8d722f3a905": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "(주)아트박스스퀘",
+    "amount": 2000.0,
+    "date": "2026-10-26"
   }
 }
