@@ -1232,5 +1232,12 @@
     "merchant": "세븐일레븐송도마",
     "amount": 3200.0,
     "date": "2026-10-25"
+  },
+  "b40a1e1038836df306ab0fe466a66c830f734a998bb9e206007eb3723ee5ec5a": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "채선당샤브보트",
+    "amount": 45700.0,
+    "date": "2026-10-26"
   }
 }
