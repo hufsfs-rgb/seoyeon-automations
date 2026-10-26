@@ -1267,5 +1267,12 @@
     "merchant": "스타벅스코리아",
     "amount": 500.0,
     "date": "2026-10-26"
+  },
+  "78da4e528913baa5229e222bc3c4a0e6b6683a4bbf13cd306b8ff11dd4ef83bb": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 7900.0,
+    "date": "2026-10-26"
   }
 }
