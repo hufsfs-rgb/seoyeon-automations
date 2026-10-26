@@ -1253,5 +1253,12 @@
     "merchant": "주식회사썬토이",
     "amount": 6000.0,
     "date": "2026-10-26"
+  },
+  "ee96b9b3ee77546b2b3ec1b69b760c6d26a635215391ff67a2e7cf3008e33735": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "에이치디현대오일",
+    "amount": 50000.0,
+    "date": "2026-10-26"
   }
 }
