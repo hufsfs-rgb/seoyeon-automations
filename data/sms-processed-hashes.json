@@ -1299,5 +1299,12 @@
     "merchant": "아파트관리비",
     "amount": 313140.0,
     "date": "2026-10-27"
+  },
+  "15317dc428f2d96306cb332333ac018592fa9cfe470e614fdcd2cc4dad7058ac": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "주식회사송도국제",
+    "amount": 20000.0,
+    "date": "2026-10-28"
   }
 }
