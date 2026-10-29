@@ -1306,5 +1306,9 @@
     "merchant": "주식회사송도국제",
     "amount": 20000.0,
     "date": "2026-10-28"
+  },
+  "2986d64a9833a082754f608a2ed510c1dbc662ee501df9e279d61912d9555bdc": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
