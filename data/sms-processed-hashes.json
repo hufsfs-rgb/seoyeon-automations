@@ -1333,5 +1333,12 @@
     "merchant": "제이드비뇨기과",
     "amount": 20000.0,
     "date": "2026-10-30"
+  },
+  "a1d35664567fa0f65fbfa143ce1f91e8e688dc5cde8901e398e12cff78f57c99": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "아이누리약국",
+    "amount": 90000.0,
+    "date": "2026-10-30"
   }
 }
