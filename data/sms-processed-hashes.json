@@ -1322,5 +1322,9 @@
     "fx": "USD46.66",
     "krw_amount": 62546,
     "date": "2026-10-29"
+  },
+  "5d018b3c930c955b2d9d35be573ba2d47e9d32765e3b4134de468e095996f205": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
