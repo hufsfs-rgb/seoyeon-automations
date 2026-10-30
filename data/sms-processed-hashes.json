@@ -1326,5 +1326,12 @@
   "5d018b3c930c955b2d9d35be573ba2d47e9d32765e3b4134de468e095996f205": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "da19a9cb8de26e334fc781470d12d7b3a97678a0d5a1a6ff85129c7ca282fe46": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "제이드비뇨기과",
+    "amount": 20000.0,
+    "date": "2026-10-30"
   }
 }
