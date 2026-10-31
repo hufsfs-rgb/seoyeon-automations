@@ -1347,5 +1347,12 @@
     "merchant": "유디논현치과의원",
     "amount": 600000.0,
     "date": "2026-10-31"
+  },
+  "eadf4fb9fab0a2c455c42432a7c8ac4619a6e07e6e9fa33dd170b409867b8e0a": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 3090.0,
+    "date": "2026-10-31"
   }
 }
