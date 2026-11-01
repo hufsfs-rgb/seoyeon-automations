@@ -1382,5 +1382,12 @@
     "merchant": "프린트카페인",
     "amount": 70.0,
     "date": "2026-11-01"
+  },
+  "3966f57011cb1d308ef84cc0462acc580ee936a19cfc16b16f8178d86a873d3f": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 11480.0,
+    "date": "2026-11-01"
   }
 }
