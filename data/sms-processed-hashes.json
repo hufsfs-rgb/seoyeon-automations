@@ -1361,5 +1361,12 @@
     "merchant": "쿠팡이츠",
     "amount": 19000.0,
     "date": "2026-11-01"
+  },
+  "52698b80ff93149fb1ed52dddec79cd04635c4f062b024c041b9898b77ac2bfc": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "신의주정찹쌀순대",
+    "amount": 33000.0,
+    "date": "2026-11-01"
   }
 }
