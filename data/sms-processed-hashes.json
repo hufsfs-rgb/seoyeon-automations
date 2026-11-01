@@ -1368,5 +1368,12 @@
     "merchant": "신의주정찹쌀순대",
     "amount": 33000.0,
     "date": "2026-11-01"
+  },
+  "843987e9383af1bb780cd9e180cd4eadb5e42c4ca181befa56ddc610006fd997": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "신의주정찹쌀순대",
+    "amount": 1000.0,
+    "date": "2026-11-01"
   }
 }
