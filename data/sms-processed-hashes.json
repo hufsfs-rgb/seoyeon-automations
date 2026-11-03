@@ -1396,5 +1396,12 @@
     "cancelled_merchant": "쿠팡",
     "amount": -11480.0,
     "date": "2026-11-01"
+  },
+  "412e3d2aaba81a53804936cdb17e25ef1b1dbac88ed6028db4dad1eba74cd882": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "투썸플레이스",
+    "amount": 70500.0,
+    "date": "2026-11-03"
   }
 }
