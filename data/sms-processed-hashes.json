@@ -1403,5 +1403,9 @@
     "merchant": "투썸플레이스",
     "amount": 70500.0,
     "date": "2026-11-03"
+  },
+  "16a45573f1bcf6dd54771b2ae63579635c14de11be4632ce949b211bca577117": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
