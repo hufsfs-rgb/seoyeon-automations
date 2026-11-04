@@ -1407,5 +1407,12 @@
   "16a45573f1bcf6dd54771b2ae63579635c14de11be4632ce949b211bca577117": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "735e3bda95ddc9ea6996e3dbfa78a41da5e520fdcb15176e76630d6e6589243f": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "지에스(GS)25송",
+    "amount": 2900.0,
+    "date": "2026-11-04"
   }
 }
