@@ -1432,5 +1432,12 @@
     "merchant": "들밥애",
     "amount": 159000.0,
     "date": "2026-11-05"
+  },
+  "efccca533c60271e50e869bc61557d10184ef93a6522819bcaf8a33129a4edc9": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "나이스인프라",
+    "amount": 3000.0,
+    "date": "2026-11-05"
   }
 }
