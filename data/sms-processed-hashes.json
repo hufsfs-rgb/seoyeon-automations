@@ -1425,5 +1425,12 @@
     "merchant": "카카오",
     "amount": 110.0,
     "date": "2026-11-05"
+  },
+  "4828e102fee77ea841ba9f096c43c202650853b2d9da5e36fe8c62c9021f96ad": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "들밥애",
+    "amount": 159000.0,
+    "date": "2026-11-05"
   }
 }
