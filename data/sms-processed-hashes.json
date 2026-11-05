@@ -1418,5 +1418,12 @@
   "f882034b5b92a96fb188460c7b8f72dd4978ce390799eaa6271dcf8d65330ebf": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "21f6f12fb4731ac61cbca7caa85c7b347c7bfb5a9a64b2df9d11131e590dbbcb": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "카카오",
+    "amount": 110.0,
+    "date": "2026-11-05"
   }
 }
