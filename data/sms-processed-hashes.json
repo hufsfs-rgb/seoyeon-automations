@@ -1439,5 +1439,12 @@
     "merchant": "나이스인프라",
     "amount": 3000.0,
     "date": "2026-11-05"
+  },
+  "7d78c573c914c4be1a026328118324a79b5205e0a7c7d6f0f51df7b1dd9877e9": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리",
+    "amount": 2280.0,
+    "date": "2026-11-05"
   }
 }
