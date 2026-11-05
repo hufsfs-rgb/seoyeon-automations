@@ -1414,5 +1414,9 @@
     "merchant": "지에스(GS)25송",
     "amount": 2900.0,
     "date": "2026-11-04"
+  },
+  "f882034b5b92a96fb188460c7b8f72dd4978ce390799eaa6271dcf8d65330ebf": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
