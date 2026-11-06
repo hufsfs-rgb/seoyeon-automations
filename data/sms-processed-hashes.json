@@ -1468,5 +1468,12 @@
     "merchant": "중앙약국",
     "amount": 10000.0,
     "date": "2026-11-06"
+  },
+  "fdeb1e18e7280731a95b91c07a6af672ae9950a1ed4440cf912229e58578a2e8": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "송도골드약국",
+    "amount": 10000.0,
+    "date": "2026-11-06"
   }
 }
