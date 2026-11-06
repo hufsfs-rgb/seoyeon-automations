@@ -1446,5 +1446,9 @@
     "merchant": "이마트에브리",
     "amount": 2280.0,
     "date": "2026-11-05"
+  },
+  "e7a9a1574d62833b962e26366ba217d2481baee83476b2ea2fca53c0c9049e9a": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
