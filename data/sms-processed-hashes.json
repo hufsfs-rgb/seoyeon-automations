@@ -1454,5 +1454,12 @@
   "1da9f6d58f1bf5ecee84c8eb43a03ddd722a67274d82f7cfe570d6babbb1506e": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "fd52ef90edb3c9ed36fd603ffb279515c64185d7386162e8bf41b1cd09b91d0a": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "그레이시티인",
+    "amount": 1000000.0,
+    "date": "2026-11-06"
   }
 }
