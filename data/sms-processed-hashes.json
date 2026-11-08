@@ -1517,5 +1517,12 @@
     "merchant": "주식회사태리",
     "amount": 70000.0,
     "date": "2026-11-08"
+  },
+  "153ba33d82225b22e65e83cc51f5bb66b3d74446fe1751e7739dd57ed634d6d4": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "(주)스시로한",
+    "amount": 43880.0,
+    "date": "2026-11-08"
   }
 }
