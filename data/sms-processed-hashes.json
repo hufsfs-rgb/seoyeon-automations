@@ -1524,5 +1524,12 @@
     "merchant": "(주)스시로한",
     "amount": 43880.0,
     "date": "2026-11-08"
+  },
+  "d09947f82425b49362b288d3af6d06f50ffa05cea480f62e2f1dcdd104c14262": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리",
+    "amount": 16260.0,
+    "date": "2026-11-09"
   }
 }
