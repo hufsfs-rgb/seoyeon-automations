@@ -1542,5 +1542,12 @@
     "merchant": "참다온약국",
     "amount": 8000.0,
     "date": "2026-11-10"
+  },
+  "a156ac75eb5464401c71b106745a40fa44c4a01ee1967a6cefd58624d92d31b6": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 9900.0,
+    "date": "2026-11-11"
   }
 }
