@@ -1535,5 +1535,12 @@
   "1a9b74dba7584f535084264237b09a3917049568825e4a7fb8f20bb85662f6ed": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "12a0da1a83d7f2d203e89a7a7da6e9b2fc15c79c63456f60094ecabbed3c7e77": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "참다온약국",
+    "amount": 8000.0,
+    "date": "2026-11-10"
   }
 }
