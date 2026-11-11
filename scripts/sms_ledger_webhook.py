@@ -96,7 +96,7 @@ EXACT_MERCHANT_OVERRIDES = {
 }
 MERCHANT_CATEGORY_OVERRIDES = {
     "에이치에스홀딩스": ("주유교통", "광명역 주차장 사용요금"),
-    "IHERB": ("생활", "iHerb 해외직구"),
+    "IHERB": ("해외직구(iHERB)", "iHerb 해외직구"),
     "스시로": ("식비", "스시로(일식 체인)"),
     "이마트": ("식비", "이마트/이마트에브리데이 등 마트 체인, 장보기"),
     "올리브영": ("생활", "CJ올리브영(드럭스토어/뷰티 체인)"),
@@ -253,23 +253,39 @@ def check_fixed_expense(merchant, krw_amount):
     push_ntfy(title, message)
 
 
-def fetch_krw_rate(date_iso, currency):
-    """Return KRW per 1 unit of currency on date_iso (ECB reference rate via
-    Frankfurter), or None if the lookup fails. Falls back to the nearest earlier
-    published rate automatically for weekends/holidays."""
-    url = f"https://api.frankfurter.dev/v1/{date_iso}?base={currency}&symbols=KRW"
+def _fetch_json(url):
     # Frankfurter's CDN rejects the default "Python-urllib" User-Agent with 403,
     # which is why every overseas SMS used to fall back to "[해외/환산필요]".
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (seoyeon-automations ledger)"})
-    for attempt in range(3):
-        try:
-            with urllib.request.urlopen(req, timeout=10) as resp:
-                data = json.loads(resp.read().decode("utf-8"))
-            return data["rates"]["KRW"]
-        except Exception as e:
-            print(f"Exchange rate lookup failed for {currency} on {date_iso} (attempt {attempt + 1}): {e}")
-            time.sleep(2)
-    return None
+    with urllib.request.urlopen(req, timeout=10) as resp:
+        return json.loads(resp.read().decode("utf-8"))
+
+
+def fetch_krw_rate(date_iso, currency):
+    """Return (KRW per 1 unit of currency, source label), or (None, None) if
+    every source fails. Tries, in order:
+    1. Frankfurter (ECB) rate for date_iso - falls back to the nearest earlier
+       published rate for weekends/holidays.
+    2. Frankfurter latest - covers same-day purchases made before the ECB
+       publishes that day's rate (~16:00 CET), which made 10/15 iHERB fail.
+    3. open.er-api.com latest - independent source in case Frankfurter is down.
+    대표님 rule (2026-10-19): overseas charges must always get a KRW amount."""
+    sources = [
+        (f"https://api.frankfurter.dev/v1/{date_iso}?base={currency}&symbols=KRW",
+         lambda d: d["rates"]["KRW"], f"{date_iso} ECB 기준"),
+        (f"https://api.frankfurter.dev/v1/latest?base={currency}&symbols=KRW",
+         lambda d: d["rates"]["KRW"], "최신 ECB 기준"),
+        (f"https://open.er-api.com/v6/latest/{currency}",
+         lambda d: d["rates"]["KRW"], "최신 시장 환율(open.er-api.com) 기준"),
+    ]
+    for url, extract, label in sources:
+        for attempt in range(2):
+            try:
+                return extract(_fetch_json(url)), label
+            except Exception as e:
+                print(f"Exchange rate lookup failed for {currency} via {url} (attempt {attempt + 1}): {e}")
+                time.sleep(2)
+    return None, None
 
 
 def load_state():
@@ -464,12 +480,12 @@ def main():
         # automatically (approximate - doesn't include the card issuer's actual FX
         # fee/spread) rather than leaving the amount blank pending manual entry.
         category, note = resolve_category(merchant, fx_amount)
-        rate = fetch_krw_rate(date_iso, currency)
+        rate, rate_label = fetch_krw_rate(date_iso, currency)
         if rate is not None:
             krw_amount = round(fx_amount * rate)
             title = merchant
             memo = "\n".join([
-                f"하나카드 해외결제 - {currency}{fx_amount:,.2f} → 자동 환율({date_iso} ECB 기준 1{currency}={rate:,.2f}원) 적용 "
+                f"하나카드 해외결제 - {currency}{fx_amount:,.2f} → 자동 환율({rate_label} 1{currency}={rate:,.2f}원) 적용 "
                 f"- 카드사 실제 청구액(수수료 포함)과 다를 수 있음, {note}",
                 SMS_TEXT,
             ])
