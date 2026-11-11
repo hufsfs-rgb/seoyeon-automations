@@ -1549,5 +1549,12 @@
     "merchant": "쿠팡",
     "amount": 9900.0,
     "date": "2026-11-11"
+  },
+  "a86ea080adaad08d2c8540e802398086356c0146c4b2249a11776773d3b0fffc": {
+    "parsed": true,
+    "card": "하나",
+    "merchant": "Agoda",
+    "amount": 412476.0,
+    "date": "2026-11-11"
   }
 }
