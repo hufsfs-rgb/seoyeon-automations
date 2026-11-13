@@ -1579,5 +1579,13 @@
     "fx": "PHP1080.0",
     "krw_amount": 22610,
     "date": "2026-11-13"
+  },
+  "11f670cb485e466f6cbd8b550c13fec191406ddb7a32f53abdc106dc5d865c35": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "PREMIER SHINJU",
+    "fx": "PHP9000.0",
+    "krw_amount": 188415,
+    "date": "2026-11-13"
   }
 }
