@@ -1571,5 +1571,13 @@
   "2731e70fc5a31454c767ee0ea472c9fbbffaf4336ee9bb08fad399917cbb2c86": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "a382ca9ab8910cd066d73226e161f6584dde2fd0d4632e66e64a146cf466b473": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "STARBUCKS 337 ZUELLI",
+    "fx": "PHP1080.0",
+    "krw_amount": 22610,
+    "date": "2026-11-13"
   }
 }
