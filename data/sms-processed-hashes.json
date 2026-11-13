@@ -1560,5 +1560,12 @@
   "0d82a062eb7eacbb3ae7e6d16ac69732ffc0084bd17961d620f64e286d452d72": {
     "parsed": false,
     "recorded_at": "2026-11-11"
+  },
+  "3ac38374fc0622123f0759344edbb2d6c76ea659f883201a977e43f02b514b24": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡(와우멤버십)",
+    "amount": 7890.0,
+    "date": "2026-11-13"
   }
 }
