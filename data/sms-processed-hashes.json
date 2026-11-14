@@ -1595,5 +1595,13 @@
     "fx": "PHP611.82",
     "krw_amount": 12820,
     "date": "2026-11-14"
+  },
+  "5fffc903eb9b2d180b45f89a4dd36f45310ab40205ea489b0b89c1246493c4eb": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "GRAB",
+    "fx": "PHP46.35",
+    "krw_amount": 971,
+    "date": "2026-11-14"
   }
 }
