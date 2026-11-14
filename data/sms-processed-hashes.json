@@ -1603,5 +1603,13 @@
     "fx": "PHP46.35",
     "krw_amount": 971,
     "date": "2026-11-14"
+  },
+  "a3f2a3d3cfc061af478465b745c60db208670d1608424afcb9d584547e725843": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "PUREGOLD DUTY FREE 4",
+    "fx": "PHP1181.2",
+    "krw_amount": 24751,
+    "date": "2026-11-14"
   }
 }
