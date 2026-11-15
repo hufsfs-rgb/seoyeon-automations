@@ -1611,5 +1611,12 @@
     "fx": "PHP1181.2",
     "krw_amount": 24751,
     "date": "2026-11-14"
+  },
+  "f8073b8b5542e71b214f4e598fe077da6e29a8b7f5d68a4f25d1ff7ecf036f79": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 17900.0,
+    "date": "2026-11-15"
   }
 }
