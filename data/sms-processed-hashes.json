@@ -1618,5 +1618,12 @@
     "merchant": "쿠팡",
     "amount": 17900.0,
     "date": "2026-11-15"
+  },
+  "a155aa6ef82faf42b80db5d33cdbfd8072204be1b22ac83156469da910de2b8a": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "그레이시티인천직",
+    "amount": 2630000.0,
+    "date": "2026-11-15"
   }
 }
