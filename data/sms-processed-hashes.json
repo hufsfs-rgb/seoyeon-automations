@@ -1650,5 +1650,12 @@
   "9e0f27ca81e260e747e2f3bb15d791034c4a226dc810e779186195f411f7191a": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "41a1c533063b26ada921f6064bf91dfb96df40bb9da596458d6683e5adcff2e5": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 28280.0,
+    "date": "2026-11-17"
   }
 }
