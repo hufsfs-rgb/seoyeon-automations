@@ -1657,5 +1657,12 @@
     "merchant": "이마트에브리데이",
     "amount": 28280.0,
     "date": "2026-11-17"
+  },
+  "ea73b3d5f18a82abce18a4ef1ae4e01348229691201cbf33310f6a5d82f91c73": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "티머니_간편결제_",
+    "amount": 16800.0,
+    "date": "2026-11-18"
   }
 }
