@@ -1646,5 +1646,9 @@
     "merchant": "송도다온약국",
     "amount": 5400.0,
     "date": "2026-11-16"
+  },
+  "9e0f27ca81e260e747e2f3bb15d791034c4a226dc810e779186195f411f7191a": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
