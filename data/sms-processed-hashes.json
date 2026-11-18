@@ -1668,5 +1668,12 @@
   "7f50ccf70b583770b7477c607383e1169984dbd900d7aab0e2851007612de4f4": {
     "parsed": false,
     "recorded_at": "2026-11-18"
+  },
+  "23a98ac133481129309439ecfc435fe009e7b444e4f70b0ba2b86366b71c19d1": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "택이집",
+    "amount": 20000.0,
+    "date": "2026-11-18"
   }
 }
