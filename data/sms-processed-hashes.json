@@ -1675,5 +1675,9 @@
     "merchant": "택이집",
     "amount": 20000.0,
     "date": "2026-11-18"
+  },
+  "93487faf671ab1176d102d1d93d8aec5d06506f8fa19c6dfc0431f6f0ad8dc1e": {
+    "parsed": false,
+    "recorded_at": "2026-11-19"
   }
 }
