@@ -1687,5 +1687,12 @@
   "8f7d3179a706a51c19a312db16ce82d71cc41a8962c320cd3454218f8a7d2783": {
     "parsed": false,
     "recorded_at": "2026-11-19"
+  },
+  "d21f6f9fdefc96e51d15b671b4ec291a255f1d752f0cbc86c2559e612c055912": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "티머니_간편결제_",
+    "amount": 16800.0,
+    "date": "2026-11-19"
   }
 }
