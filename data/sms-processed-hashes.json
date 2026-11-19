@@ -1694,5 +1694,9 @@
     "merchant": "티머니_간편결제_",
     "amount": 16800.0,
     "date": "2026-11-19"
+  },
+  "663ac1d889d0de1fde6db2e90d1e87e1dbc8c2d4dcf87aa72a5459bfa9431f91": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
