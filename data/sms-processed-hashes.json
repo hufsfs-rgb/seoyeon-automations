@@ -1723,5 +1723,12 @@
     "merchant": "현장발권-S",
     "amount": 12100.0,
     "date": "2026-11-20"
+  },
+  "39cc2a8b94263c4d57365de87938e557b1764d5f9ca2ca178d319d6dba70d6a4": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "현장발권-S",
+    "amount": 4700.0,
+    "date": "2026-11-20"
   }
 }
