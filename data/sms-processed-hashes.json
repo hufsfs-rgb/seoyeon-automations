@@ -1716,5 +1716,12 @@
     "merchant": "이마트24동대구복",
     "amount": 1100.0,
     "date": "2026-11-20"
+  },
+  "c7df0c050d0b6ed307e12b4890107e96e6ba6ffb94bf64c36adbba7bbd94d71e": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "현장발권-S",
+    "amount": 12100.0,
+    "date": "2026-11-20"
   }
 }
