@@ -1705,5 +1705,9 @@
     "merchant": "SK통신료(837477)",
     "amount": 23780.0,
     "date": "2026-11-19"
+  },
+  "3add31d2577761d36919669c2fc7b5c8607dc207929a0cf29e2f428a8128e237": {
+    "parsed": false,
+    "skipped": "advertisement"
   }
 }
