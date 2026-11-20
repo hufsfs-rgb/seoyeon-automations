@@ -1709,5 +1709,12 @@
   "3add31d2577761d36919669c2fc7b5c8607dc207929a0cf29e2f428a8128e237": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "32d75a11c153ccc159c9db9bcfea4cec63352bfe38929801106e6ce54394b40f": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트24동대구복",
+    "amount": 1100.0,
+    "date": "2026-11-20"
   }
 }
