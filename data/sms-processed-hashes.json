@@ -1698,5 +1698,12 @@
   "663ac1d889d0de1fde6db2e90d1e87e1dbc8c2d4dcf87aa72a5459bfa9431f91": {
     "parsed": false,
     "skipped": "advertisement"
+  },
+  "5c82378c33d771d2e8150eca44f5989649ee3121db124a733339cbef8792ab1e": {
+    "parsed": true,
+    "card": "삼성카드",
+    "merchant": "SK통신료(837477)",
+    "amount": 23780.0,
+    "date": "2026-11-19"
   }
 }
