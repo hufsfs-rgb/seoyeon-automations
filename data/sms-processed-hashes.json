@@ -1737,5 +1737,12 @@
     "merchant": "이동의즐거움_택",
     "amount": 8900.0,
     "date": "2026-11-20"
+  },
+  "1abcf3cfd8f6dc0e17ecb07eab0e24ed7eb705758bedbaa7cfab6259b929f270": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "송림식당",
+    "amount": 36000.0,
+    "date": "2026-11-20"
   }
 }
