@@ -1744,5 +1744,12 @@
     "merchant": "송림식당",
     "amount": 36000.0,
     "date": "2026-11-20"
+  },
+  "dd03e76f48301d2f0a8d5d69a142d0bfe639af99425b783aa0742c89b28e5478": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "(주)에이치앤",
+    "amount": 20000.0,
+    "date": "2026-11-21"
   }
 }
