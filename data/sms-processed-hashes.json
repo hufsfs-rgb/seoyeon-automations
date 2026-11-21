@@ -1762,5 +1762,12 @@
     "merchant": "으뜸50안경대구죽",
     "amount": 27000.0,
     "date": "2026-11-21"
+  },
+  "faf9471b8ecc68806460068f651993dede17c11665e8ccfab8bb1049be7b40df": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "마당발",
+    "amount": 20000.0,
+    "date": "2026-11-21"
   }
 }
