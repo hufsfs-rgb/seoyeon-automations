@@ -1751,5 +1751,9 @@
     "merchant": "(주)에이치앤",
     "amount": 20000.0,
     "date": "2026-11-21"
+  },
+  "1bd41b60e08b4ace99c3b98a3e195dc65e25342ba8133b7c19d299f408ea5c45": {
+    "parsed": false,
+    "recorded_at": "2026-11-21"
   }
 }
