@@ -1783,5 +1783,12 @@
     "merchant": "에이치에스홀딩스",
     "amount": 33200.0,
     "date": "2026-11-21"
+  },
+  "eea109d2d4b96f4a1b0a66bd0701ce9fa99c4d3e2e82ef8848857e269b6b2ce7": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "진허우(JINHOU)",
+    "amount": 40000.0,
+    "date": "2026-11-21"
   }
 }
