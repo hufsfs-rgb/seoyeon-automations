@@ -1790,5 +1790,12 @@
     "merchant": "진허우(JINHOU)",
     "amount": 40000.0,
     "date": "2026-11-21"
+  },
+  "619213174bba15b817b78288f887ee177e9fb0d2e44ebcc7f3f43eca8d67bbb9": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 14110.0,
+    "date": "2026-11-21"
   }
 }
