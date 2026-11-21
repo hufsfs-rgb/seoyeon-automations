@@ -1769,5 +1769,12 @@
     "merchant": "마당발",
     "amount": 20000.0,
     "date": "2026-11-21"
+  },
+  "4168e64d090314405d63c11faca199c3f7165ef7c95ed14d1b553a80da2c588a": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "코레일유통주식회",
+    "amount": 10000.0,
+    "date": "2026-11-21"
   }
 }
