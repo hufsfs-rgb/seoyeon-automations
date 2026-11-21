@@ -1755,5 +1755,12 @@
   "1bd41b60e08b4ace99c3b98a3e195dc65e25342ba8133b7c19d299f408ea5c45": {
     "parsed": false,
     "recorded_at": "2026-11-21"
+  },
+  "57760390a1af4aafa315e1b010b328bc4c6e79c49a71659f5131c240238a2985": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "으뜸50안경대구죽",
+    "amount": 27000.0,
+    "date": "2026-11-21"
   }
 }
