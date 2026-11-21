@@ -1797,5 +1797,12 @@
     "merchant": "쿠팡",
     "amount": 14110.0,
     "date": "2026-11-21"
+  },
+  "ed7a372e696adc25bd16122c21db770df094355313e7e23a6b47f7261eec5077": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 18900.0,
+    "date": "2026-11-21"
   }
 }
