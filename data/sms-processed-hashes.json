@@ -1833,5 +1833,12 @@
     "merchant": "쿠팡",
     "amount": 7200.0,
     "date": "2026-11-23"
+  },
+  "f7b04d46974e7e32a221696d3260514af8360e9f16fbc913aa7f440df2e9b8c1": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리",
+    "amount": 23580.0,
+    "date": "2026-11-23"
   }
 }
