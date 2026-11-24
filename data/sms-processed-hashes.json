@@ -1847,5 +1847,13 @@
     "merchant": "Agoda",
     "amount": 321209.0,
     "date": "2026-11-24"
+  },
+  "9c0aa27b39963eb1d4deb976397b261f680912809ec5e6d38a288a9eafbfe1e0": {
+    "parsed": true,
+    "card": "hana_overseas",
+    "merchant": "IHERB IHERB.COM",
+    "fx": "USD75.56",
+    "krw_amount": 101919,
+    "date": "2026-11-24"
   }
 }
