@@ -1840,5 +1840,12 @@
     "merchant": "이마트에브리",
     "amount": 23580.0,
     "date": "2026-11-23"
+  },
+  "8ff07a5c965699fcf3fec5469bdd370ef38f8a25d08ae4fa2d27795120263fc0": {
+    "parsed": true,
+    "card": "하나",
+    "merchant": "Agoda",
+    "amount": 321209.0,
+    "date": "2026-11-24"
   }
 }
