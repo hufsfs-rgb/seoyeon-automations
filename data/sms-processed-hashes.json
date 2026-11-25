@@ -1869,5 +1869,12 @@
     "merchant": "에스케이브로드밴드주식",
     "amount": 42900.0,
     "date": "2026-11-24"
+  },
+  "0eef6743d7742f4de8c28c8f44ef1b34497ecafdd48a5f7697e9fce3b0b7f8e6": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "쿠팡",
+    "amount": 38120.0,
+    "date": "2026-11-25"
   }
 }
