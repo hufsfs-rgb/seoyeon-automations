@@ -1862,5 +1862,12 @@
     "merchant": "아파트관리비",
     "amount": 349930.0,
     "date": "2026-11-24"
+  },
+  "cccc9d5ec97ad717f0265a11e72f631f34543a4e71b9705045aeaab9bfcc2412": {
+    "parsed": true,
+    "card": "삼성카드",
+    "merchant": "에스케이브로드밴드주식",
+    "amount": 42900.0,
+    "date": "2026-11-24"
   }
 }
