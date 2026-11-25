@@ -1855,5 +1855,12 @@
     "fx": "USD75.56",
     "krw_amount": 101919,
     "date": "2026-11-24"
+  },
+  "dafe124891de8fb72c5eb65dcb7e4f254d3c14c17bd1dda942b3409c24f3bf60": {
+    "parsed": true,
+    "card": "삼성카드",
+    "merchant": "아파트관리비",
+    "amount": 349930.0,
+    "date": "2026-11-24"
   }
 }
