@@ -1880,5 +1880,12 @@
   "e5d1af40574f30713db3d4074aee3a7f1d4013aa79b0c2c450a97f3126a565cd": {
     "parsed": false,
     "recorded_at": "2026-11-27"
+  },
+  "801eef3ea3df099a45350189cdcea93553f7a425255839a64ff3c286b4611d76": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "광한루남원추어탕",
+    "amount": 11000.0,
+    "date": "2026-11-27"
   }
 }
