@@ -1887,5 +1887,12 @@
     "merchant": "광한루남원추어탕",
     "amount": 11000.0,
     "date": "2026-11-27"
+  },
+  "41813632f1cda51762179a3c7e8125904b9ffcc5a8dda43f6a6e44832ef06aba": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "오운의원",
+    "amount": 4000.0,
+    "date": "2026-11-27"
   }
 }
