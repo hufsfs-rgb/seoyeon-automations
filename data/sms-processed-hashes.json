@@ -1894,5 +1894,12 @@
     "merchant": "오운의원",
     "amount": 4000.0,
     "date": "2026-11-27"
+  },
+  "715cd8d6dabf694722923ff061735d83600177eee5ad245505db4b685a5b5b1e": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "송도다온약국",
+    "amount": 4400.0,
+    "date": "2026-11-27"
   }
 }
