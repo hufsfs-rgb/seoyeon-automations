@@ -1953,5 +1953,12 @@
     "merchant": "주식회사아성다이",
     "amount": 10000.0,
     "date": "2026-11-28"
+  },
+  "83857e003fc30982b2bde7e6a4788f22fbef4d39e1a039df4cb37710207d665d": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "이마트에브리데이",
+    "amount": 24840.0,
+    "date": "2026-11-28"
   }
 }
