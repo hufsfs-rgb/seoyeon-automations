@@ -1922,5 +1922,9 @@
     "merchant": "쿠팡",
     "amount": 9900.0,
     "date": "2026-11-27"
+  },
+  "d95cb82f3ef201fe305e5b2890541fa5379c4a00eae3431c26e4851147f2e03a": {
+    "parsed": false,
+    "recorded_at": "2026-11-28"
   }
 }
