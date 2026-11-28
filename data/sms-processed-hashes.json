@@ -1946,5 +1946,12 @@
   "b7f0aeba8728cf56c3dbc4948a502b0ca879fb4a8d601a734e76dc064ed5890f": {
     "parsed": false,
     "recorded_at": "2026-11-28"
+  },
+  "f97a9bfb4fb12f2f4730e55d1e0627de3a1ffb34b80bbe995115a3cbf916b3bf": {
+    "parsed": true,
+    "card": "삼성",
+    "merchant": "주식회사아성다이",
+    "amount": 10000.0,
+    "date": "2026-11-28"
   }
 }
